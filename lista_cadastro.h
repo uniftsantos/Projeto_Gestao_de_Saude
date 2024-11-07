@@ -36,6 +36,7 @@ typedef struct {
 }Lista;
 
 
+Data * inicia_data();
 //Funcao para inicializar a lista  que contem a Elista. 
 Lista * inicicializa_lista_cadastro();
 

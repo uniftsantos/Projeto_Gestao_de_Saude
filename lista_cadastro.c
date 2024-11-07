@@ -6,7 +6,7 @@
 
 void limpa_buffer(){
     int c;
-    while ((c = getchar()) != '\n') { }
+    while ((c = getchar()) != '\n' && c != EOF) { }
 }
 
 //Funcao para inicializar a lista  que contem a Elista. 
@@ -25,27 +25,21 @@ Elista * inicicializa_elista_cadastro(Registro paciente){
     return elista;
 }
 
+Data * inicia_data(){
+    Data *data = malloc(sizeof(Data));
+    data->dia = 0;
+    data->mes = 0;
+    data->ano = 0;
 
+    return data;
+}
 
 void inserir_lista_cadastro(Lista *lista, Registro registro){
     Elista * novaElista = inicicializa_elista_cadastro(registro);
     Elista * atualElista = lista->inicio;
-    Elista * elistaAnterior = NULL;
 
-    if(lista->qtde == 0){
-        lista->inicio = novaElista;
-        
-
-    }
-    else{
-        while(atualElista != NULL){// laco para pecorre a lista.
-            elistaAnterior = atualElista;
-            atualElista = atualElista->proximo;
-        }
-        elistaAnterior ->proximo = novaElista;
-        
-        
-    }
+    lista->inicio = novaElista;
+    novaElista->proximo = atualElista;
 
     lista->qtde ++;
 }
