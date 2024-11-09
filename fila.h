@@ -3,7 +3,7 @@
 #include "lista_cadastro.h"
 
 typedef struct Celula{
-    Registro registro;
+    Registro * registro;
     struct Celula *proximo;
     struct Celula * anterior;  
 
@@ -15,11 +15,11 @@ typedef struct {
     int qtde;
 } Queue;
 
-Celula * cria_celula(Registro registro);
+Celula * cria_celula(Registro *registro);
 
 Queue *cria_queue();
 
-void enqueue(Queue * queue, Registro registro);
+void enqueue(Queue * queue, Registro *registro);
 
 void dequeue (Queue * queue);
 

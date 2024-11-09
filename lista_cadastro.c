@@ -4,10 +4,7 @@
 #include "lista_cadastro.h"
 
 
-void limpa_buffer(){
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) { }
-}
+
 
 //Funcao para inicializar a lista  que contem a Elista. 
 Lista * inicicializa_lista_cadastro()
@@ -20,7 +17,7 @@ Lista * inicicializa_lista_cadastro()
 
 Registro * inicia_registro()
 {
-    Registro* registro = malloc(sizeof(registro));
+    Registro* registro = malloc(sizeof(Registro));
     registro->Entrada = inicia_data();
 }
 

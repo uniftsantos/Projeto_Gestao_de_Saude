@@ -2,10 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lista_cadastro.h"
+#include "fila.h"
+#include "biblioteca_geral.h"
 
 int main(){
 
-    Lista *lista = inicicializa_lista_cadastro();
+    Lista *lista = inicicializa_lista_cadastro(); //Lista de cadastro
+
+    Queue * fila = cria_queue(); //Lista de atendimento
     while (1)
     {
         Registro * paciente = inicia_registro();
@@ -21,6 +25,9 @@ int main(){
         printf("MENU GERENCIAMENTO DE SAÚDE:\n");
         printf("1 - Cadastrar Novo paciente.\n");
         printf("2 - Inserir paciente na fila.\n");
+        printf("3 - Mostrar fila de atendimento.\n");
+        printf("4 - Remover paciente da fila.\n");
+
         printf("3 - Pesquisa paciente.\n");
         printf("4 - Desfazer operação.\n");
         printf("5 - Carregar/Salvar.\n");
@@ -66,6 +73,7 @@ int main(){
             inserir_lista_cadastro(lista, paciente);
             mostrar_lista_cadastro(lista);
         }
+
         else if(opcao == 2)
         {
 
@@ -73,17 +81,29 @@ int main(){
             scanf("%s",&rg);
             limpa_buffer();
 
-            Registro *x = encontra_paciente(lista, rg);
+            Registro * r1 = encontra_paciente(lista, rg);
 
-            if(x == NULL)
+            if(r1 == NULL)
             {
-                printf("não");
+                printf("\nPaciente nao cadastrado\n");
             }
             else
             {
-                printf("Sim");
+                enqueue(fila,r1);
+                printf("\nPaciente cadastrado");
             }
         }
+
+        else if (opcao ==3){
+            printf("Fila de atendimento:\n");
+            Show(fila);
+        }
+
+        else if (opcao ==4){
+            printf("Paciente removido da fila de atendimento.\n");
+            dequeue(fila);
+        }
+
         if(opcao ==7){            
             printf("Saindo do programa");
             break;

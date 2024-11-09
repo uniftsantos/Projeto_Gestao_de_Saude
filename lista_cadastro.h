@@ -1,8 +1,7 @@
 #ifndef LISTA_CADASTRO_H
 #define LISTA_CADASTRO_H
 
-//Para facilitar na hora do input:
-void limpa_buffer();
+
 
 //Declarando as estruturas solicitados para o desenvolvimento do projeto.
 

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 
-Celula * cria_celula(Registro registro){
+Celula * cria_celula(Registro * registro){
     Celula *celula = malloc(sizeof(Celula));
 
     celula ->anterior = NULL;
@@ -23,7 +23,7 @@ Queue *cria_queue(){
     return queue;
 }
 
-void enqueue(Queue * queue, Registro registro){
+void enqueue(Queue * queue, Registro * registro){
     Celula *novo = cria_celula(registro);
     if(queue->qtde == 0){
         queue ->head = novo;      
@@ -45,7 +45,7 @@ void dequeue (Queue * queue){
     }
     else
     {
-        Registro registro = queue ->head ->registro;
+        Registro * registro = queue->head ->registro;
         Celula *temp = queue ->head;
         queue -> head = queue ->head -> proximo;
 
@@ -59,14 +59,14 @@ void dequeue (Queue * queue){
         }
         queue ->qtde --;
         free(temp);
-        printf("Registro removido %s", registro.nome);
+        printf("RG %s fora da fila\n", registro->rg);
     }
 }
 
 void Show (Queue * queue){
     Celula * atual = queue ->head;
     while(atual != NULL){
-        printf("%d ", atual ->registro);
+        printf("Paciente: %s == portador do rg %s \n",atual->registro->nome, atual->registro->rg);
         atual = atual ->proximo;
     }
     printf("\n");
