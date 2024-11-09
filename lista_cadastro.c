@@ -47,7 +47,7 @@ void inserir_lista_cadastro(Lista *lista, Registro registro){
 void mostrar_lista_cadastro (Lista * lista){
     Elista * atual = lista->inicio;
     printf("PACIENTES CADASTRADOS:\n");
-    while (atual != NULL)
+    while (atual != NULL )
     {
         printf("Nome: %s\n", atual->dados.nome);
         printf("Idade: %d\n",atual->dados.idade);
@@ -59,4 +59,13 @@ void mostrar_lista_cadastro (Lista * lista){
     }
     printf("\n");
     
+}
+
+Registro encontra_paciente (Lista * lista, char rg[15]){
+    Elista * atual = lista->inicio;
+    while(atual != NULL && atual->dados.rg != rg){
+        atual = atual->proximo;
+
+    }
+    return atual->dados;
 }
