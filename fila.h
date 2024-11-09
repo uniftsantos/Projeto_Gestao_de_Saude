@@ -15,16 +15,14 @@ typedef struct {
     int qtde;
 } Queue;
 
-Celula * cria_celula(int valor);
+Celula * cria_celula(Registro registro);
 
 Queue *cria_queue();
 
-void enqueue(Queue * queue, int valor);
+void enqueue(Queue * queue, Registro registro);
 
-int dequeue (Queue * queue);
+void dequeue (Queue * queue);
 
 void Show (Queue * queue);
-
-void Show_invertido(Queue * queue);
 
 #endif 

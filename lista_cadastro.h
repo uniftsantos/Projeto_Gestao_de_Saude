@@ -21,10 +21,9 @@ typedef struct {
 
 } Registro;
 
-
 //Estrtura: Lista Dinâmica Encadeada, para realização do cadastro.
 typedef struct Elista{
-    Registro dados;
+    Registro * dados;
     struct Elista *proximo;
 
 }Elista;
@@ -40,10 +39,13 @@ Data * inicia_data();
 //Funcao para inicializar a lista  que contem a Elista. 
 Lista * inicicializa_lista_cadastro();
 
-//Funcao onde incializamos a Elista, que contem as informacoes de registro do paciente e a data que ele foi.
-Elista * inicicializa_elista_cadastro(Registro paciente);
+Registro * inicia_registro();
+Registro * encontra_paciente (Lista * lista, char rg[15]);
 
-void inserir_lista_cadastro(Lista *lista, Registro registro);
+//Funcao onde incializamos a Elista, que contem as informacoes de registro do paciente e a data que ele foi.
+Elista * inicicializa_elista_cadastro(Registro * paciente);
+
+void inserir_lista_cadastro(Lista *lista, Registro * registro);
 
 void mostrar_lista_cadastro (Lista * lista);
 

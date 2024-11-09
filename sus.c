@@ -8,7 +8,7 @@ int main(){
     Lista *lista = inicicializa_lista_cadastro();
     while (1)
     {
-        Registro paciente;
+        Registro * paciente = inicia_registro();
         Data *data = inicia_data();
         char nome[100];
         char rg[15];
@@ -54,16 +54,16 @@ int main(){
             scanf("%d", &ano);
 
             // Atribuição aos campos da estrutura
-            data->dia = dia;
-            data->mes = mes;
-            data->ano = ano;
+            paciente->Entrada->dia = dia;
+            paciente->Entrada->mes = mes;
+            paciente->Entrada->ano = ano;
+            paciente->idade = idade;
 
             // Copia valores para a estrutura paciente
-            strcpy(paciente.nome, nome);
-            paciente.idade = idade;
-            strcpy(paciente.rg, rg);
-            paciente.Entrada = data;
-            inserir_lista_cadastro(lista,paciente);
+            strcpy(paciente->nome, nome);
+            strcpy(paciente->rg, rg);
+
+            inserir_lista_cadastro(lista, paciente);
             mostrar_lista_cadastro(lista);
         }
         else if(opcao == 2)
@@ -73,7 +73,16 @@ int main(){
             scanf("%s",&rg);
             limpa_buffer();
 
-            
+            Registro *x = encontra_paciente(lista, rg);
+
+            if(x == NULL)
+            {
+                printf("não");
+            }
+            else
+            {
+                printf("Sim");
+            }
         }
         if(opcao ==7){            
             printf("Saindo do programa");
