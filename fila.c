@@ -1,29 +1,15 @@
 #include "lista_cadastro.h"
+#include "fila.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 
-typedef struct Celula{
-    int valor;
-    struct Celula *proximo;
-    struct Celula * anterior;  
-
-} Celula;
-
-
-
-typedef struct {
-    Elista* head;
-    Elista* tail;
-    int qtde;
-
-} Queue;
-
-Celula * cria_celula(int valor){
+Celula * cria_celula(Registro registro){
     Celula *celula = malloc(sizeof(Celula));
+
     celula ->anterior = NULL;
     celula ->proximo = NULL;
-    celula -> valor = valor;
+    celula -> registro = registro;
 
     return celula;
 }
@@ -37,8 +23,8 @@ Queue *cria_queue(){
     return queue;
 }
 
-void enqueue(Queue * queue, int valor){
-    Celula *novo = cria_celula(valor);
+void enqueue(Queue * queue, Registro registro){
+    Celula *novo = cria_celula(registro);
     if(queue->qtde == 0){
         queue ->head = novo;      
 
@@ -52,70 +38,36 @@ void enqueue(Queue * queue, int valor){
     queue ->qtde ++;
 }
 
-int dequeue (Queue * queue){
-    if(queue->qtde == 0){
-        return -1;
+void dequeue (Queue * queue){
+    if(queue->qtde == 0)
+    {
+        printf("Não tem nada para tirar");
     }
+    else
+    {
+        Registro registro = queue ->head ->registro;
+        Celula *temp = queue ->head;
+        queue -> head = queue ->head -> proximo;
 
-    int valor = queue ->head ->valor;
-    Celula *temp = queue ->head;
-    queue -> head = queue ->head -> proximo;
-
-    if(queue->qtde == 1){//fila unitaria
-    
-        //int valor = queue ->head -> valor;
-        //Celula *temp = queue ->head;
-        //queue ->head = NULL;
-        queue ->tail = NULL;
-        // queue ->qtde --;
-        // free(temp);
-        // return valor; 
+        if(queue->qtde == 1)
+        {
+            queue->tail = NULL;
+        }
+        else
+        {
+            queue-> head-> anterior = NULL;
+        }
+        queue ->qtde --;
+        free(temp);
+        printf("Registro removido %s", registro.nome);
     }
-    else{
-        //int valor = queue ->head ->valor;
-        //Celula * temp = queue ->head;
-        //queue -> head = queue ->head->proximo;
-        queue-> head-> anterior = NULL;
-        // queue ->qtde --;
-        // free(temp);
-        // return valor;
-    }
-    queue ->qtde --;
-    free(temp);
-    return valor;
-        
-
 }
 
 void Show (Queue * queue){
     Celula * atual = queue ->head;
     while(atual != NULL){
-        printf("%d ", atual ->valor);
+        printf("%d ", atual ->registro);
         atual = atual ->proximo;
     }
     printf("\n");
-}
-
-void Show_invertido(Queue * queue){
-    Celula * atual = queue -> tail;
-    while(atual != NULL){
-        printf("%d ", atual ->valor);
-        atual = atual ->anterior;
-    }
-    printf("\n");
-}
-
-int main(){
-    Queue * queue = cria_queue();
-    for (int i = 89; i>0; i = i - 7){
-        enqueue(queue,i);
-        Show(queue);
-        Show_invertido(queue);
-    }
-
-    for(int i=0; i< 15; i++){
-        printf("Removido: %d\n",dequeue(queue));
-        Show(queue);
-        Show_invertido(queue);
-    }
 }

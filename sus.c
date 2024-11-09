@@ -8,9 +8,19 @@ int main(){
     Lista *lista = inicicializa_lista_cadastro();
     while (1)
     {
+        Registro paciente;
+        Data *data = inicia_data();
+        char nome[100];
+        char rg[15];
+        int idade;
+        int dia;
+        int mes;
+        int ano;
+        int opcao;
+
         printf("MENU GERENCIAMENTO DE SAÚDE:\n");
         printf("1 - Cadastrar Novo paciente.\n");
-        printf("2 - Fila de atendimento.\n");
+        printf("2 - Inserir paciente na fila.\n");
         printf("3 - Pesquisa paciente.\n");
         printf("4 - Desfazer operação.\n");
         printf("5 - Carregar/Salvar.\n");
@@ -18,18 +28,10 @@ int main(){
         printf("7 - Sair\n");
         printf("Digite o numero da acao que deseja realizar.\n");
 
-        int opcao;
         scanf("%d", &opcao);
 
         if(opcao == 1){
-            Registro paciente;
-            Data *data = inicia_data();
-            char nome[100];
-            char rg[15];
-            int idade;
-            int dia;
-            int mes;
-            int ano;
+            
 
             printf("Digite seu nome: ");
             scanf("%s", &nome);
@@ -63,6 +65,15 @@ int main(){
             paciente.Entrada = data;
             inserir_lista_cadastro(lista,paciente);
             mostrar_lista_cadastro(lista);
+        }
+        else if(opcao == 2)
+        {
+
+            printf("Digite RG do paciente cadastrado: ");
+            scanf("%s",&rg);
+            limpa_buffer();
+
+            
         }
         if(opcao ==7){            
             printf("Saindo do programa");
