@@ -4,12 +4,15 @@
 #include "lista_cadastro.h"
 #include "fila.h"
 #include "biblioteca_geral.h"
+#include "arvore.h"
 
 int main(){
 
     Lista *lista = inicicializa_lista_cadastro(); //Lista de cadastro
 
     Queue * fila = cria_queue(); //Lista de atendimento
+    Arvore * arvore = cria_arvore();
+
     while (1)
     {
         Registro * paciente = inicia_registro();
@@ -27,6 +30,7 @@ int main(){
         printf("2 - Inserir paciente na fila.\n");
         printf("3 - Mostrar fila de atendimento.\n");
         printf("4 - Remover paciente da fila.\n");
+        printf("5 - Insercao da arvora ordenada por idade.\n");
 
         printf("3 - Pesquisa paciente.\n");
         printf("4 - Desfazer operação.\n");
@@ -77,7 +81,7 @@ int main(){
         else if(opcao == 2)
         {
 
-            printf("Digite RG do paciente cadastrado: ");
+            printf("Digite RG do paciente cadastrado para insercao de atendimento: ");
             scanf("%s",&rg);
             limpa_buffer();
 
@@ -102,6 +106,25 @@ int main(){
         else if (opcao ==4){
             printf("Paciente removido da fila de atendimento.\n");
             dequeue(fila);
+        }
+
+        else if (opcao ==5){
+            printf("Digite RG do paciente cadastrado para insercao da arvore ordenada por idade: ");
+            scanf("%s",&rg);
+            limpa_buffer();
+
+            Registro * r1 = encontra_paciente(lista, rg);
+
+            if(r1== NULL){
+                printf("\nPaciente nao cadastrado.\n");
+            }
+            else{
+                inserir_ordenado_idade(arvore,r1);
+                printf("\na\n\n");
+                in_ordem(arvore->raiz);
+            }
+
+
         }
 
         if(opcao ==7){            
