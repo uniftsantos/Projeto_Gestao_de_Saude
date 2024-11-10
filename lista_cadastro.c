@@ -60,12 +60,49 @@ void mostrar_lista_cadastro (Lista * lista)
         printf("Nome: %s\n", atual->dados->nome);
         printf("Idade: %d\n",atual->dados->idade);
         printf("Documento: %s\n", atual->dados->rg);
-        printf("Data de Entrada: %d/%.2d/%d",atual->dados->Entrada->dia, atual->dados->Entrada->mes, atual->dados->Entrada->ano);
+        printf("Data de Entrada: %.2d/%.2d/%d\n",atual->dados->Entrada->dia, atual->dados->Entrada->mes, atual->dados->Entrada->ano);
         printf("\n----------------------------------------------------\n");
         atual = atual->proximo;
         
     }
     printf("\n");    
+}
+
+void remover(Lista *lista, Registro * registro){
+    Elista *atual = lista->inicio;
+    Elista *anterior = NULL;
+
+    if(atual->dados->rg == registro->rg){
+
+      if(lista->qtde == 1){//apagando quando temos apenas um cara.
+        free(lista->inicio);
+        lista->inicio = NULL;
+      }
+      else{//apagando o primeiro elemento da lista, independente do tamanho.
+        lista->inicio = atual->proximo;
+        free(atual);
+      }
+    }
+ 
+
+    else{ 
+        while(atual->proximo != NULL && atual->dados->rg != registro->rg){//percorre nossa lista;
+            anterior = atual;
+            atual = atual->proximo;
+        }
+
+        if(atual->proximo == NULL){//removendo o ultimo elemento.
+            free(atual);
+            anterior->proximo = NULL;
+
+        }
+
+        else{
+            anterior->proximo = atual->proximo;
+            free(atual);
+        }
+
+    }
 }
 
 Registro *encontra_paciente (Lista * lista, char rg[15])

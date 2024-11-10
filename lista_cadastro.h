@@ -48,4 +48,6 @@ void inserir_lista_cadastro(Lista *lista, Registro * registro);
 
 void mostrar_lista_cadastro (Lista * lista);
 
+void remover(Lista *lista, Registro * registro);
+
 #endif //LISTA_CADASTRO_H
