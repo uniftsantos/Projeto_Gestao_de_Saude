@@ -29,5 +29,8 @@ Vertice *cria_vertice(Registro *registro);
 Arvore *cria_arvore();
 
 void inserir_ordenado_idade (Arvore * arvore, Registro *registro);
+void inserir_ordenado_ano (Arvore * arvore, Registro *registro);
+void inserir_ordenado_mes (Arvore * arvore, Registro *registro);
+void inserir_ordenado_dia (Arvore * arvore, Registro *registro);
 
 #endif

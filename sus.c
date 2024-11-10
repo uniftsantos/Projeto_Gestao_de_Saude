@@ -11,7 +11,11 @@ int main(){
     Lista *lista = inicicializa_lista_cadastro(); //Lista de cadastro
 
     Queue * fila = cria_queue(); //Lista de atendimento
-    Arvore * arvore = cria_arvore();
+
+    Arvore * arvore_idade = cria_arvore(); //arvore binaria ordenada pela idade
+    Arvore * arvore_dia = cria_arvore(); //arvore binaria ordenada pelo dia
+    Arvore * arvore_mes = cria_arvore(); //arvore binaria ordenada pelo mes
+    Arvore * arvore_ano = cria_arvore(); //arvpre binaria ordenada pelo ano
 
     while (1)
     {
@@ -41,6 +45,9 @@ int main(){
 
         //Arvore binaria(Pesquisa)
         printf("9 - Insercao da arvora ordenada por idade.\n");
+        printf("10 - Insercao da arvore ordenada por ano.\n");
+        printf("11 - Insercao da arvore ordenada por mes.\n");
+        printf("12 - Insercao da arvore ordenada por dia.\n");
 
         printf("10 - Pesquisa paciente.\n");
         printf("11 - Desfazer operação.\n");
@@ -177,13 +184,67 @@ int main(){
                 printf("\nPaciente nao cadastrado.\n");
             }
             else{
-                inserir_ordenado_idade(arvore,r1);
+                inserir_ordenado_idade(arvore_idade,r1);
                 printf("\na\n\n");
-                in_ordem(arvore->raiz);
+                in_ordem(arvore_idade->raiz);
+            }
+        }
+
+        else if(opcao ==10){
+            printf("Digite RG do paciente cadastrado para insercao da arvore ordenada pelo ano: ");
+            scanf("%s",&rg);
+            limpa_buffer();
+
+            Registro * r1 = encontra_paciente(lista, rg);
+
+            if(r1== NULL){
+                printf("\nPaciente nao cadastrado.\n");
+            }
+            else{
+                inserir_ordenado_ano(arvore_ano,r1);
+                printf("\na\n\n");
+                in_ordem(arvore_ano->raiz);
             }
 
+        }
+
+        else if(opcao == 11){
+            printf("Digite RG do paciente cadastrado para insercao da arvore ordenada pelo mes: ");
+            scanf("%s",&rg);
+            limpa_buffer();
+
+            Registro * r1 = encontra_paciente(lista, rg);
+
+            if(r1== NULL){
+                printf("\nPaciente nao cadastrado.\n");
+            }
+            else{
+                inserir_ordenado_mes(arvore_mes,r1);
+                printf("\na\n\n");
+                in_ordem(arvore_mes->raiz);
+            }
 
         }
+
+        else if(opcao == 11){
+            printf("Digite RG do paciente cadastrado para insercao da arvore ordenada pelo dia: ");
+            scanf("%s",&rg);
+            limpa_buffer();
+
+            Registro * r1 = encontra_paciente(lista, rg);
+
+            if(r1== NULL){
+                printf("\nPaciente nao cadastrado.\n");
+            }
+            else{
+                inserir_ordenado_dia(arvore_dia,r1);
+                printf("\na\n\n");
+                in_ordem(arvore_dia->raiz);
+            }
+
+        }
+
+        
 
         if(opcao ==14){            
             printf("Saindo do programa");
