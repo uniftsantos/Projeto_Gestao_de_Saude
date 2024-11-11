@@ -1,8 +1,6 @@
 #ifndef LISTA_CADASTRO_H
 #define LISTA_CADASTRO_H
 
-
-
 //Declarando as estruturas solicitados para o desenvolvimento do projeto.
 
 typedef struct {
@@ -45,6 +43,8 @@ Registro * encontra_paciente (Lista * lista, char rg[15]);
 Elista * inicicializa_elista_cadastro(Registro * paciente);
 
 void inserir_lista_cadastro(Lista *lista, Registro * registro);
+
+void atualiza_cadastro(Lista * lista);
 
 void mostrar_lista_cadastro (Lista * lista);
 

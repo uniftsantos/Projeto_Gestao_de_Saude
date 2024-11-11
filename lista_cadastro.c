@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lista_cadastro.h"
-
-
-
+#include "biblioteca_geral.h"
+#include "arvore.h"
 
 //Funcao para inicializar a lista  que contem a Elista. 
 Lista * inicicializa_lista_cadastro()
@@ -117,4 +116,57 @@ Registro *encontra_paciente (Lista * lista, char rg[15])
         return atual->dados;
     
     return NULL;
+}
+
+
+void atualiza_cadastro(Lista * lista)
+{   
+    char rg[15];
+    int idade;
+    int dia;
+    int mes;
+    int ano;
+    char nome[100];
+
+    printf("Digite o RG do paciente que voce deseja atualizar: \n");
+    scanf("%s", &rg);
+    limpa_buffer();
+
+    Registro * r1 = encontra_paciente(lista, rg);
+
+    if(r1 == NULL)
+    {    
+        printf("Paciente não cadastrado\n\n");
+    }
+    else
+    {
+        printf("Digite seu nome: ");
+        scanf("%s", &nome);
+        limpa_buffer();
+
+        printf("\nDigite sua idade: ");
+        scanf("%d", &idade);
+
+        printf("\nDigite seu documento: ");
+        scanf("%s", &rg);
+        limpa_buffer();
+
+        printf("\nDigite dia de entrada: ");
+        scanf("%d", &dia);
+        
+        printf("Digite mes de entrada: ");
+        scanf("%d", &mes);
+        
+        printf("Digite ano de entrada: ");
+        scanf("%d", &ano);
+
+        strcpy(r1->nome, nome);
+        strcpy(r1->rg, rg);
+        r1->idade = idade;
+        r1->Entrada->ano = ano;
+        r1->Entrada->mes = mes;
+        r1->Entrada->dia = dia;
+    }
+    
+
 }

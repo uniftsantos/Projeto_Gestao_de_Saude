@@ -7,6 +7,8 @@ Vertice *cria_vertice(Registro * registro){
 	Vertice* novo = malloc(sizeof(Vertice));
 	novo->dir = NULL;
 	novo->esq = NULL;
+    novo->pai = NULL;
+
 	novo->registro = registro;
 	
 	return novo;
@@ -21,7 +23,7 @@ Arvore *cria_arvore(){
 }
 
 void visitar (Vertice * vertice){
-    printf("nome: %s\n", vertice->registro->nome);
+    printf("Nome: %s\n", vertice->registro->nome);
     printf("RG: %s\n", vertice->registro->rg);
 }
 
@@ -50,34 +52,95 @@ void pos_ordem(Vertice *raiz){
 }
 
 
-void inserir_ordenado_idade (Arvore * arvore, Registro *registro){
-    Vertice * novo = cria_vertice(registro);
-    if(arvore->raiz == NULL){
-        arvore->raiz = novo;
-    }
-    else{
-        Vertice * atual = arvore->raiz;
-        Vertice * anterior = NULL;
+Vertice *encontra_posicao(Arvore *arvore, Registro * registro, int orientacao)
+{
+    Vertice *atual = arvore->raiz;
+    Vertice *anterior = NULL;
 
-        while (atual != NULL){
-            if(novo->registro->idade <= atual->registro->idade){
+    while(atual != NULL){
+
+        if(orientacao == 1)
+        {
+            if(registro->idade <= atual->registro->idade)
+            {   
                 anterior = atual;
                 atual = atual->esq;
             }
-            else{
+            else
+            {
                 anterior = atual;
                 atual = atual->dir;
-            }  
+            }
         }
+        else if(orientacao == 2)
+        {
+            if(registro->Entrada->ano <= atual->registro->Entrada->ano)
+            {   
+                anterior = atual;
+                atual = atual->esq;
+            }
+            else
+            {
+                anterior = atual;
+                atual = atual->dir;
+            }
+        }
+        else if(orientacao == 3)
+        {
+            if(registro->Entrada->mes <= atual->registro->Entrada->mes)
+            {   
+                anterior = atual;
+                atual = atual->esq;
+            }
+            else
+            {
+                anterior = atual;
+                atual = atual->dir;
+            }
+        }else if(orientacao == 4)
+        {
+            if(registro->Entrada->dia <= atual->registro->Entrada->dia)
+            {   
+                anterior = atual;
+                atual = atual->esq;
+            }
+            else
+            {
+                anterior = atual;
+                atual = atual->dir;
+            }
+        }
+    }
 
-        if(anterior->registro->rg > novo->registro->rg){
-            anterior->esq = novo;
+
+    return anterior;
+}
+
+void inserir_ordenado_idade(Arvore *arvore, Registro *registro){
+    Vertice *novo = cria_vertice(registro);
+
+    if(arvore->qtde == 0)
+    {
+        arvore->raiz = novo;  
+        novo->pai = NULL;      
+    }
+    else
+    {
+        Vertice *vertice = encontra_posicao(arvore, registro, 1);
+
+        if(novo->registro->idade <= vertice->registro->idade)
+        {
+            vertice->esq = novo;
+            novo->pai = vertice;
         }
-        else{
-            anterior->dir = novo;
+        else
+        {
+            vertice->dir = novo;
+            novo->pai = vertice;
         }
 
     }
+
     arvore->qtde++;
 }
 
@@ -89,23 +152,18 @@ void inserir_ordenado_ano (Arvore * arvore, Registro *registro){
     else{
         Vertice * atual = arvore->raiz;
         Vertice * anterior = NULL;
+        
+        Vertice *vertice = encontra_posicao(arvore, registro, 2);
 
-        while (atual != NULL){
-            if(novo->registro->Entrada->ano <= atual->registro->Entrada->ano){
-                anterior = atual;
-                atual = atual->esq;
-            }
-            else{
-                anterior = atual;
-                atual = atual->dir;
-            }  
+        if(novo->registro->Entrada->ano <= vertice->registro->Entrada->ano)
+        {
+            vertice->esq = novo;
+            novo->pai = vertice;
         }
-
-        if(anterior->registro->rg > novo->registro->rg){
-            anterior->esq = novo;
-        }
-        else{
-            anterior->dir = novo;
+        else
+        {
+            vertice->dir = novo;
+            novo->pai = vertice;
         }
 
     }
@@ -114,29 +172,25 @@ void inserir_ordenado_ano (Arvore * arvore, Registro *registro){
 
 void inserir_ordenado_mes (Arvore * arvore, Registro *registro){
     Vertice * novo = cria_vertice(registro);
-    if(arvore->raiz == NULL){
+    if(arvore->raiz == NULL)
+    {
         arvore->raiz = novo;
     }
     else{
         Vertice * atual = arvore->raiz;
         Vertice * anterior = NULL;
 
-        while (atual != NULL){
-            if(novo->registro->Entrada->mes <= atual->registro->Entrada->mes){
-                anterior = atual;
-                atual = atual->esq;
-            }
-            else{
-                anterior = atual;
-                atual = atual->dir;
-            }  
-        }
+        Vertice *vertice = encontra_posicao(arvore, registro, 3);
 
-        if(anterior->registro->rg > novo->registro->rg){
-            anterior->esq = novo;
+        if(novo->registro->Entrada->mes <= vertice->registro->Entrada->mes)
+        {
+            vertice->esq = novo;
+            novo->pai = vertice;
         }
-        else{
-            anterior->dir = novo;
+        else
+        {
+            vertice->dir = novo;
+            novo->pai = vertice;
         }
 
     }
@@ -152,29 +206,19 @@ void inserir_ordenado_dia (Arvore * arvore, Registro *registro){
         Vertice * atual = arvore->raiz;
         Vertice * anterior = NULL;
 
-        while (atual != NULL){
-            if(novo->registro->Entrada->dia <= atual->registro->Entrada->dia){
-                anterior = atual;
-                atual = atual->esq;
-            }
-            else{
-                anterior = atual;
-                atual = atual->dir;
-            }  
-        }
+        Vertice *vertice = encontra_posicao(arvore, registro, 4);
 
-        if(anterior->registro->rg > novo->registro->rg){
-            anterior->esq = novo;
+        if(novo->registro->Entrada->dia <= vertice->registro->Entrada->dia)
+        {
+            vertice->esq = novo;
+            novo->pai = vertice;
         }
-        else{
-            anterior->dir = novo;
+        else
+        {
+            vertice->dir = novo;
+            novo->pai = vertice;
         }
 
     }
     arvore->qtde++;
 }
-
-
-
-
-

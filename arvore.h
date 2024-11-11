@@ -6,6 +6,7 @@ typedef struct Vertice{
 	Registro * registro;
 	struct Vertice* esq;
 	struct Vertice* dir;
+	struct Vertice* pai;
 } Vertice;
 
 
