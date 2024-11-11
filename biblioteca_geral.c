@@ -20,16 +20,17 @@ void menu()
     printf("8 - Remover paciente da fila.\n");
 
     //Arvore binaria(Pesquisa)
-    printf("9  - Insercao da arvora ordenada por idade.\n");
-    printf("10 - Insercao da arvore ordenada por ano.\n");
-    printf("11 - Insercao da arvore ordenada por mes.\n");
-    printf("12 - Insercao da arvore ordenada por dia.\n");
+    printf("9  - Mostrar ordenado por idade.\n");
+    printf("10 - Mostrar ordenado por ano.\n");
+    printf("11 - Mostrar ordenado por mes.\n");
+    printf("12 - Mostrar ordenado por dia.\n");
 
-    printf("10 - Pesquisa paciente.\n");
-    printf("11 - Desfazer operação.\n");
-    printf("12 - Carregar/Salvar.\n");
-    printf("13 - Informacao dos desenvolvedores.\n");
-    printf("14 - Sair\n");
+    printf("13 - Desfazer operação.\n");
+    printf("14 - Carregar.\n");
+    printf("15 - Salvar.\n");
+
+    printf("16 - Informacao dos desenvolvedores.\n");
+    printf("17 - Sair\n");
     printf("Digite o numero da acao que deseja realizar.\n");
 }
 
@@ -98,4 +99,5 @@ void aguarda_retorno()
     char x[1];
     printf("Digite 1 para voltar ao menu: ");
     scanf("%s", &x);
+    system("cls");
 }

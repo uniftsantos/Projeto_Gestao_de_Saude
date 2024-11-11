@@ -8,9 +8,8 @@
 
 int main(){
 
+    int chek = 1;
     Lista *lista = inicicializa_lista_cadastro(); //Lista de cadastro
-
-    carregar_lista(lista);
 
     Queue * fila = cria_queue(); //Lista de atendimento
 
@@ -19,14 +18,14 @@ int main(){
     Arvore * arvore_mes   = cria_arvore(); //arvore binaria ordenada pelo mes
     Arvore * arvore_ano   = cria_arvore(); //arvpre binaria ordenada pelo ano
 
-    while (1)
+    while (chek)
     {
         
         Registro * paciente = inicia_registro();
 
         char nome[100];
         char rg[15];
-        int idade, dia, mes, ano, opcao, chek = 0;
+        int idade, dia, mes, ano, opcao;
 
         menu();
 
@@ -75,7 +74,6 @@ int main(){
 
                 printf("\nPaciente Cadastrado com sucesso.\n\n");
                 aguarda_retorno();
-                system("cls");
             break;
 
             case(2):
@@ -89,10 +87,12 @@ int main(){
 
                 Registro * r1 = encontra_paciente(lista, rg);
 
-                if(r1 == NULL){
+                if(r1 == NULL)
+                {
                     printf("\nPaciente nao cadastrado\n\n");
                 }
-                else{
+                else
+                {
                     printf("Informacoes do paciente:\n");
                     printf("RG: %s\n",r1->rg);
                     printf("Nome: %s\n",r1->nome);
@@ -167,17 +167,28 @@ int main(){
                 in_ordem(arvore_dia->raiz);
             break;
 
+            case(13):
+                //CTRL Z
+            break;
+            
             case(14):
+                carregar_lista(lista);
+            break;
+
+            case(15):
                 salvar_lista(lista);
-                chek = 1;
+            break;
+
+            case(16):
+                //Sobre
+            break;
+
+            case(17):
+                chek = 0;
             break;
             
         }    
-        if(chek) {
-            system("cls");
-            printf("Codigo encerrado.");
-            break;
-        }
     }
-    
+    system("cls");
+    printf("Codigo encerrado.");
 }
