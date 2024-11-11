@@ -32,8 +32,70 @@ void menu()
     printf("14 - Sair\n");
     printf("Digite o numero da acao que deseja realizar.\n");
 }
+
 void limpa_buffer()
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) { }
+}
+
+void salvar_lista(Lista * lista) 
+{
+    FILE *arquivo = fopen("Arquivos/teste.txt", "wb");
+    Elista * atual = lista->inicio;
+
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo para salvar.\n");
+        return;
+    }
+
+    fwrite(&(lista->quantidade), sizeof(int), 1, arquivo);
+
+    while (atual != NULL) 
+    {
+
+        fwrite(atual->dados, sizeof(Registro), 1, arquivo);
+        fwrite(atual->dados->Entrada, sizeof(Data), 1, arquivo);
+
+        atual = atual->proximo;
+    }
+
+    fclose(arquivo);
+}
+
+void carregar_lista(Lista *lista) {
+    FILE *arquivo = fopen("Arquivos/teste.txt", "rb");  
+    int quantidade;
+
+    if (arquivo == NULL) 
+    {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+        return;
+    }
+
+    fread(&quantidade, sizeof(int), 1, arquivo); 
+    printf("\n %d REGISTROS CARREGADOS\n", quantidade);
+
+    for (int i = 0; i < quantidade; i++) 
+    {
+        Registro * registro = inicia_registro();
+        Data *data = inicia_data();  
+
+        fread(registro, sizeof(Registro), 1, arquivo);
+        fread(data, sizeof(Data), 1, arquivo);
+
+        registro->Entrada = data;
+
+        inserir_lista_cadastro(lista, registro);
+    }
+
+    fclose(arquivo);
+}
+
+void aguarda_retorno()
+{
+    char x[1];
+    printf("Digite 1 para voltar ao menu: ");
+    scanf("%s", &x);
 }

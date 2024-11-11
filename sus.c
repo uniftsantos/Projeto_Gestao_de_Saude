@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lista_cadastro.h"
 #include "fila.h"
-#include "biblioteca_geral.h"
 #include "arvore.h"
+#include "lista_cadastro.h"
+#include "biblioteca_geral.h"
 
 int main(){
 
     Lista *lista = inicicializa_lista_cadastro(); //Lista de cadastro
+
+    carregar_lista(lista);
 
     Queue * fila = cria_queue(); //Lista de atendimento
 
@@ -19,16 +21,12 @@ int main(){
 
     while (1)
     {
+        
         Registro * paciente = inicia_registro();
-        Data *data = inicia_data();
 
         char nome[100];
         char rg[15];
-        int idade;
-        int dia;
-        int mes;
-        int ano;
-        int opcao;
+        int idade, dia, mes, ano, opcao, chek = 0;
 
         menu();
 
@@ -37,6 +35,8 @@ int main(){
         switch(opcao)
         {
             case(1):
+                system("cls");
+
                 printf("Digite seu nome: ");
                 scanf("%s", &nome);
                 limpa_buffer();
@@ -74,6 +74,8 @@ int main(){
                 inserir_ordenado_dia(arvore_dia, paciente);
 
                 printf("\nPaciente Cadastrado com sucesso.\n\n");
+                aguarda_retorno();
+                system("cls");
             break;
 
             case(2):
@@ -95,7 +97,6 @@ int main(){
                     printf("RG: %s\n",r1->rg);
                     printf("Nome: %s\n",r1->nome);
                     printf("Idade: %d\n",r1->idade);
-                    printf("Data de Entrada: %.2d/%.2d/%d\n\n", r1->Entrada->dia, r1->Entrada->mes, r1->Entrada->ano);
                 }
             break;
 
@@ -111,13 +112,14 @@ int main(){
 
                 r1 = encontra_paciente(lista, rg);
 
-                if(r1 == NULL){
+                if(r1 == NULL)
+                {
                     printf("O paciente que deseja remover nao existe na lista de cadastrado.\n\n");
                 }
-                else{
+                else
+                {
                     remover(lista,r1);
                     printf("Paciente removido com sucesso.\n");
-
                 }
             break;
 
@@ -164,7 +166,18 @@ int main(){
             case(12):
                 in_ordem(arvore_dia->raiz);
             break;
+
+            case(14):
+                salvar_lista(lista);
+                chek = 1;
+            break;
+            
         }    
+        if(chek) {
+            system("cls");
+            printf("Codigo encerrado.");
+            break;
+        }
     }
     
 }

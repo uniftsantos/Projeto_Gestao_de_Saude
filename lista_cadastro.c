@@ -24,6 +24,16 @@ Registro * inicia_registro()
     return registro;
 }
 
+Data * inicia_data()
+{
+    Data *data = malloc(sizeof(Data));
+    data->dia = 0;
+    data->mes = 0;
+    data->ano = 0;
+
+    return data;
+}
+
 //Funcao onde incializamos a Elista, que contem as informacoes de registro do paciente e a data que ele foi.
 Elista * inicicializa_elista_cadastro(Registro * paciente)
 {
@@ -35,15 +45,7 @@ Elista * inicicializa_elista_cadastro(Registro * paciente)
     return elista;
 }
 
-Data * inicia_data()
-{
-    Data *data = malloc(sizeof(Data));
-    data->dia = 0;
-    data->mes = 0;
-    data->ano = 0;
 
-    return data;
-}
 
 void inserir_lista_cadastro(Lista *lista, Registro * registro)
 {
@@ -58,6 +60,7 @@ void inserir_lista_cadastro(Lista *lista, Registro * registro)
 
 void mostrar_lista_cadastro (Lista * lista)
 {
+    system("cls");
     if(lista->quantidade == 0)
     {
         printf("Lista de cadastro vazia.\n");
@@ -66,8 +69,7 @@ void mostrar_lista_cadastro (Lista * lista)
     {
         Elista * atual = lista->inicio;
 
-        printf("LISTA CADASTRO:\n");
-        printf("PACIENTES CADASTRADOS:\n");
+        printf("PACIENTES CADASTRADOS:\n\n");
 
         while (atual != NULL )
         {
@@ -81,6 +83,8 @@ void mostrar_lista_cadastro (Lista * lista)
         printf("\n");    
     }
    
+   aguarda_retorno();
+   system("cls");
 }
 
 void remover(Lista *lista, Registro * registro)
@@ -128,6 +132,7 @@ void remover(Lista *lista, Registro * registro)
         }
 
     }
+    lista->quantidade--;
 }
 
 Registro *encontra_paciente (Lista * lista, char rg[15])
