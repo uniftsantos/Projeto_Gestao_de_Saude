@@ -77,7 +77,6 @@ int main(){
             break;
 
             case(2):
-                printf("LISTA CADASTRO:\n");
                 mostrar_lista_cadastro(lista);
             break;
             
@@ -101,8 +100,6 @@ int main(){
             break;
 
             case(4):
-                printf("Atualizar os dados do paciente:\n");
-            
                 atualiza_cadastro(lista);
             break;
 

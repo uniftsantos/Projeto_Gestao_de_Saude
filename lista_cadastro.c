@@ -9,8 +9,10 @@
 Lista * inicicializa_lista_cadastro()
 {
     Lista *lista_cadastro = malloc(sizeof(Lista));
+
     lista_cadastro->inicio = NULL;
-    lista_cadastro->qtde = 0;
+    lista_cadastro->quantidade = 0;
+
     return lista_cadastro;
 }
 
@@ -18,14 +20,18 @@ Registro * inicia_registro()
 {
     Registro* registro = malloc(sizeof(Registro));
     registro->Entrada = inicia_data();
+
+    return registro;
 }
 
 //Funcao onde incializamos a Elista, que contem as informacoes de registro do paciente e a data que ele foi.
 Elista * inicicializa_elista_cadastro(Registro * paciente)
 {
     Elista *elista = malloc(sizeof(Elista));
+
     elista->dados = paciente;
     elista->proximo = NULL;
+
     return elista;
 }
 
@@ -47,56 +53,76 @@ void inserir_lista_cadastro(Lista *lista, Registro * registro)
     lista->inicio = novaElista;
     novaElista->proximo = atualElista;
 
-    lista->qtde ++;
+    lista->quantidade++;
 }
 
 void mostrar_lista_cadastro (Lista * lista)
 {
-    Elista * atual = lista->inicio;
-    printf("PACIENTES CADASTRADOS:\n");
-    while (atual != NULL )
+    if(lista->quantidade == 0)
     {
-        printf("Nome: %s\n", atual->dados->nome);
-        printf("Idade: %d\n",atual->dados->idade);
-        printf("Documento: %s\n", atual->dados->rg);
-        printf("Data de Entrada: %.2d/%.2d/%d\n",atual->dados->Entrada->dia, atual->dados->Entrada->mes, atual->dados->Entrada->ano);
-        printf("\n----------------------------------------------------\n");
-        atual = atual->proximo;
-        
+        printf("Lista de cadastro vazia.\n");
     }
-    printf("\n");    
+    else
+    {
+        Elista * atual = lista->inicio;
+
+        printf("LISTA CADASTRO:\n");
+        printf("PACIENTES CADASTRADOS:\n");
+
+        while (atual != NULL )
+        {
+            printf("Nome: %s\n", atual->dados->nome);
+            printf("Idade: %d\n",atual->dados->idade);
+            printf("Documento: %s\n", atual->dados->rg);
+            printf("Data de Entrada: %.2d/%.2d/%d\n",atual->dados->Entrada->dia, atual->dados->Entrada->mes, atual->dados->Entrada->ano);
+            printf("\n----------------------------------------------------\n");
+            atual = atual->proximo;    
+        }
+        printf("\n");    
+    }
+   
 }
 
-void remover(Lista *lista, Registro * registro){
+void remover(Lista *lista, Registro * registro)
+{
     Elista *atual = lista->inicio;
     Elista *anterior = NULL;
 
-    if(atual->dados->rg == registro->rg){
+    if(atual->dados->rg == registro->rg)
+    {
 
-      if(lista->qtde == 1){//apagando quando temos apenas um cara.
+      if(lista->quantidade == 1)
+      {
+        //apagando quando temos apenas um cara.
         free(lista->inicio);
         lista->inicio = NULL;
       }
-      else{//apagando o primeiro elemento da lista, independente do tamanho.
+      else
+      {
+        //apagando o primeiro elemento da lista, independente do tamanho.
         lista->inicio = atual->proximo;
         free(atual);
       }
     }
  
 
-    else{ 
-        while(atual->proximo != NULL && atual->dados->rg != registro->rg){//percorre nossa lista;
+    else
+    { 
+        while(atual->proximo != NULL && atual->dados->rg != registro->rg)
+        {//percorre nossa lista;
             anterior = atual;
             atual = atual->proximo;
         }
 
-        if(atual->proximo == NULL){//removendo o ultimo elemento.
+        if(atual->proximo == NULL)
+        {//removendo o ultimo elemento.
             free(atual);
             anterior->proximo = NULL;
 
         }
 
-        else{
+        else
+        {
             anterior->proximo = atual->proximo;
             free(atual);
         }
@@ -121,6 +147,8 @@ Registro *encontra_paciente (Lista * lista, char rg[15])
 
 void atualiza_cadastro(Lista * lista)
 {   
+    printf("Atualizar os dados do paciente:\n");
+
     char rg[15];
     int idade;
     int dia;
@@ -167,6 +195,4 @@ void atualiza_cadastro(Lista * lista)
         r1->Entrada->mes = mes;
         r1->Entrada->dia = dia;
     }
-    
-
 }

@@ -3,31 +3,34 @@
 
 //Declarando as estruturas solicitados para o desenvolvimento do projeto.
 
-typedef struct {
+typedef struct 
+{
     int dia;
     int mes;
     int ano;
 } Data;
 
 
-typedef struct {
+typedef struct 
+{
     char nome[100];
-    int idade;
     char rg[15];
+    int idade;
     Data * Entrada;
-
 } Registro;
 
 //Estrtura: Lista Dinâmica Encadeada, para realização do cadastro.
-typedef struct Elista{
+typedef struct Elista
+{
     Registro * dados;
     struct Elista *proximo;
 
 }Elista;
 
-typedef struct {
+typedef struct 
+{
     Elista * inicio;
-    int qtde;
+    int quantidade;
 
 }Lista;
 
@@ -43,11 +46,8 @@ Registro * encontra_paciente (Lista * lista, char rg[15]);
 Elista * inicicializa_elista_cadastro(Registro * paciente);
 
 void inserir_lista_cadastro(Lista *lista, Registro * registro);
-
 void atualiza_cadastro(Lista * lista);
-
 void mostrar_lista_cadastro (Lista * lista);
-
 void remover(Lista *lista, Registro * registro);
 
 #endif //LISTA_CADASTRO_H
