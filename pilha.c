@@ -39,3 +39,13 @@ Registro *pop(Stack*pilha){
 
 }
 
+void show(Stack * pilha){
+    Celula * atual = pilha->topo;
+    printf("TOPO-> ");
+    while(atual != NULL){
+        printf("%d ", atual->registro->rg);
+        atual = atual->proximo;
+    }
+    printf("<- Base\n");
+}
+

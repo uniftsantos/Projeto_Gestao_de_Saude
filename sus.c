@@ -5,6 +5,7 @@
 #include "arvore.h"
 #include "lista_cadastro.h"
 #include "biblioteca_geral.h"
+#include "pilha.h"
 
 int main(){
 
@@ -17,6 +18,10 @@ int main(){
     Arvore * arvore_dia   = cria_arvore(); //arvore binaria ordenada pelo dia
     Arvore * arvore_mes   = cria_arvore(); //arvore binaria ordenada pelo mes
     Arvore * arvore_ano   = cria_arvore(); //arvpre binaria ordenada pelo ano
+
+    Stack * pilha = criar_pilha();
+
+
 
     while (chek)
     {

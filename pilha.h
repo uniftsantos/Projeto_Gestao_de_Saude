@@ -18,6 +18,7 @@ Celula * criar_celula(Registro* registro);
 Stack * criar_pilha();
 void push(Stack *pilha, Registro* registro);
 Registro *pop(Stack*pilha);
+void show(Stack * pilha);
 
 
 #endif 
