@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Celula * criar_celula(Registro* registro){
-    Celula *celula = malloc(sizeof(Celula));
+Celula_pilha * criar_celula(Registro* registro){
+    Celula_pilha *celula = malloc(sizeof(Celula_pilha));
     celula->registro = registro;
     celula->proximo = NULL;
     return celula;
@@ -18,7 +18,7 @@ Stack * criar_pilha(){
 }
 
 void push(Stack *pilha, Registro* registro){
-    Celula * novo = criar_celula(registro);
+    Celula_pilha * novo = criar_celula(registro);
     novo->proximo = pilha->topo;
     pilha->topo = novo;
     pilha->qtde ++;
@@ -31,7 +31,7 @@ Registro *pop(Stack*pilha){
     }
 
     Registro* registro = pilha->topo->registro;
-    Celula * temp = pilha->topo;
+    Celula_pilha * temp = pilha->topo;
     pilha->topo = pilha->topo->proximo;
     pilha->qtde --;
     free(temp);
@@ -40,7 +40,7 @@ Registro *pop(Stack*pilha){
 }
 
 void show(Stack * pilha){
-    Celula * atual = pilha->topo;
+    Celula_pilha * atual = pilha->topo;
     printf("TOPO-> ");
     while(atual != NULL){
         printf("%d ", atual->registro->rg);

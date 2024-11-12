@@ -3,18 +3,18 @@
 #include "lista_cadastro.h"
 
 
-typedef struct Celula{
-    struct Celula *proximo;
+typedef struct Celula_pilha{
+    struct Celula_pilha *proximo;
     Registro * registro;
-} Celula;
+} Celula_pilha;
 
 typedef struct {
-    Celula *topo;
+    Celula_pilha *topo;
     int qtde;
 } Stack;
 
 
-Celula * criar_celula(Registro* registro);
+Celula_pilha * criar_celula(Registro* registro);
 Stack * criar_pilha();
 void push(Stack *pilha, Registro* registro);
 Registro *pop(Stack*pilha);
