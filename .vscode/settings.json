@@ -2,6 +2,7 @@
     "files.associations": {
         "stdio.h": "c",
         "fila.h": "c",
-        "lista_cadastro.h": "c"
+        "lista_cadastro.h": "c",
+        "arvore.h": "c"
     }
 }

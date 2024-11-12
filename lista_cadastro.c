@@ -58,7 +58,7 @@ void inserir_lista_cadastro(Lista *lista, Registro * registro)
     lista->quantidade++;
 }
 
-void mostrar_lista_cadastro (Lista * lista)
+void mostrar_lista_cadastro(Lista * lista)
 {
     system("cls");
     if(lista->quantidade == 0)
@@ -149,7 +149,28 @@ Registro *encontra_paciente (Lista * lista, char rg[15])
     return NULL;
 }
 
+void consulta_paciente(Lista * lista)
+{
+    char rg[15];
 
+    printf("Digite o RG do paciente que deseja buscar");
+    scanf("%s",&rg);
+    limpa_buffer();
+
+    Registro * r1 = encontra_paciente(lista, rg);
+
+    if(r1 == NULL)
+    {
+        printf("\nPaciente nao cadastrado\n\n");
+    }
+    else
+    {
+        printf("Informacoes do paciente:\n");
+        printf("RG: %s\n",r1->rg);
+        printf("Nome: %s\n",r1->nome);
+        printf("Idade: %d\n",r1->idade);
+    }
+}
 void atualiza_cadastro(Lista * lista)
 {   
     printf("Atualizar os dados do paciente:\n");
