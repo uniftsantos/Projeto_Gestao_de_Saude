@@ -21,8 +21,6 @@ int main(){
 
     Stack * pilha = criar_pilha();
 
-
-
     while (chek)
     {
         
@@ -142,6 +140,8 @@ int main(){
                 else
                 {
                     enqueue(fila,r1);
+                    push(pilha, r1, 1);
+                    show(pilha);
                     printf("\nPaciente cadastrado");
                 }
             break;
@@ -173,7 +173,7 @@ int main(){
             break;
 
             case(13):
-                //CTRL Z
+                desafazer(pilha, fila);
             break;
             
             case(14):
