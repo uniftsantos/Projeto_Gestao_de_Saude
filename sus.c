@@ -158,7 +158,7 @@ int main(){
             break;
             
             case(14):
-                carregar_lista(lista);
+                carregar_lista(lista, arvore_idade, arvore_dia, arvore_mes, arvore_ano);
             break;
 
             case(15):

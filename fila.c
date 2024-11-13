@@ -73,8 +73,8 @@ void Show (Queue * queue){
 
 void Show_invertido(Queue * queue){
     Celula * atual = queue -> tail;
-    while(atual != NULL){
-        printf("Paciente: %s == portador do rg %s \n",atual->registro->nome, atual->registro->rg);
+    while(atual != NULL)
+    {
         atual = atual ->anterior;
     }
     printf("\n");

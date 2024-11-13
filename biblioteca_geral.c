@@ -2,22 +2,24 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lista_cadastro.h"
+#include "arvore.h"
+#include "fila.h"
 
 void menu()
 {
     printf("MENU GERENCIAMENTO DE SAÚDE:\n");
 
     //Lista Dinamica Encadeada(cadastrar)
-    printf("1 - Cadastrar Novo paciente:\n");
-    printf("2 - Mostrar lista completa:\n");
-    printf("3 - Consultar paciente cadastrado:\n");
-    printf("4 - Atualizar dados do paciente:\n");
-    printf("5 - Remover paciente da lista de cadastro:\n");
+    printf("1  - Cadastrar Novo paciente:\n");
+    printf("2  - Mostrar lista completa:\n");
+    printf("3  - Consultar paciente cadastrado:\n");
+    printf("4  - Atualizar dados do paciente:\n");
+    printf("5  - Remover paciente da lista de cadastro:\n");
 
     //fila(Atendimento)
-    printf("6 - Inserir paciente na fila.\n");
-    printf("7 - Mostrar fila de atendimento.\n");
-    printf("8 - Remover paciente da fila.\n");
+    printf("6  - Inserir paciente na fila.\n");
+    printf("7  - Mostrar fila de atendimento.\n");
+    printf("8  - Remover paciente da fila.\n");
 
     //Arvore binaria(Pesquisa)
     printf("9  - Mostrar ordenado por idade.\n");
@@ -25,7 +27,7 @@ void menu()
     printf("11 - Mostrar ordenado por mes.\n");
     printf("12 - Mostrar ordenado por dia.\n");
 
-    printf("13 - Desfazer operação.\n");
+    printf("13 - Desfazer operacao.\n");
     printf("14 - Carregar.\n");
     printf("15 - Salvar.\n");
 
@@ -42,7 +44,7 @@ void limpa_buffer()
 
 void salvar_lista(Lista * lista) 
 {
-    FILE *arquivo = fopen("Arquivos/teste.txt", "wb");
+    FILE *arquivo = fopen("Arquivos/registrosArmazenados.txt", "wb");
     Elista * atual = lista->inicio;
 
     if (arquivo == NULL)
@@ -65,8 +67,10 @@ void salvar_lista(Lista * lista)
     fclose(arquivo);
 }
 
-void carregar_lista(Lista *lista) {
-    FILE *arquivo = fopen("Arquivos/teste.txt", "rb");  
+void carregar_lista(Lista *lista, Arvore * arvore_idade, Arvore * arvore_dia, Arvore * arvore_mes, Arvore * arvore_ano) {
+    FILE *arquivo = fopen("Arquivos/registrosArmazenados.txt", "rb"); 
+    Queue * fila = cria_queue();
+
     int quantidade;
 
     if (arquivo == NULL) 
@@ -88,16 +92,40 @@ void carregar_lista(Lista *lista) {
 
         registro->Entrada = data;
 
-        inserir_lista_cadastro(lista, registro);
+        enqueue(fila, registro);
+    }
+
+    Celula * atual = fila->tail;
+    while(atual != NULL)
+    {
+        inserir_lista_cadastro(lista, atual->registro);
+        inserir_ordenado_idade(arvore_idade, atual->registro);
+        inserir_ordenado_dia(arvore_dia, atual->registro);
+        inserir_ordenado_mes(arvore_mes, atual->registro);
+        inserir_ordenado_ano(arvore_ano, atual->registro);
+
+        atual = atual ->anterior;
     }
 
     fclose(arquivo);
 }
 
+int confirma()
+{
+    int x;
+
+    printf("Digite 1 para confirmar: ");
+    scanf("%d", &x);
+    system("cls");
+
+    return x;
+
+}
 void aguarda_retorno()
 {
-    char x[1];
-    printf("Digite 1 para voltar ao menu: ");
-    scanf("%s", &x);
-    system("cls");
+    int x = 0;
+    while(x != 1)
+    {
+        x = confirma();
+    }
 }

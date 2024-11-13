@@ -25,7 +25,7 @@ Registro * inicia_registro()
     return registro;
 }
 
-//Funcao para inicilizar a Data de entrada
+//Funcao para inicializar a Data de entrada do paciente.
 Data * inicia_data()
 {
     Data *data = malloc(sizeof(Data));
@@ -48,7 +48,8 @@ Elista * inicicializa_elista_cadastro(Registro * paciente)
 }
 
 
-
+//Funcao que insere o registro na lista de cadastro, e como solicitado sempre fazemos a insercao no inicio da lista. E aumentamos
+// a quantidade de dados dentro da lista.
 void inserir_lista_cadastro(Lista *lista, Registro * registro)
 {
     Elista * novaElista = inicicializa_elista_cadastro(registro);
@@ -60,9 +61,10 @@ void inserir_lista_cadastro(Lista *lista, Registro * registro)
     lista->quantidade++;
 }
 
+//Funcao que percorre a nossa lista de cadastro e vai printando as informacoes do paciente.
 void mostrar_lista_cadastro(Lista * lista)
 {
-    system("cls");
+    system("cls");//Limpa o terminal
     if(lista->quantidade == 0)
     {
         printf("Lista de cadastro vazia.\n");
@@ -84,11 +86,12 @@ void mostrar_lista_cadastro(Lista * lista)
         }
         printf("\n");    
     }
-   
+   //chamada da funcao que se encontra na "biblioteca_geral.c/h", esta comentado.
    aguarda_retorno();
-   system("cls");
+   system("cls");//Limpa terminal
 }
 
+//Funcao que remove um registro solicitado pelo usuario.
 void remover(Lista *lista, Registro * registro)
 {
     Elista *atual = lista->inicio;
@@ -114,8 +117,8 @@ void remover(Lista *lista, Registro * registro)
 
     else
     { 
-        while(atual->proximo != NULL && atual->dados->rg != registro->rg)
-        {//percorre nossa lista;
+        while(atual->proximo != NULL && atual->dados->rg != registro->rg)// loop para percorrer nossa lista.
+        {
             anterior = atual;
             atual = atual->proximo;
         }
@@ -128,15 +131,17 @@ void remover(Lista *lista, Registro * registro)
         }
 
         else
-        {
+        {//removendo elemento no meio da lista.
             anterior->proximo = atual->proximo;
             free(atual);
         }
 
     }
-    lista->quantidade--;
+    lista->quantidade--; //diminuindo a quantidade de elementos da nossa lista.
 }
 
+//Funcao resposavel por procurar se existe o rg solicitado pelo usuario na nossa lista cadastro, e caso encontre esse elemento
+// ira retornar um Registro.
 Registro *encontra_paciente (Lista * lista, char rg[15])
 {
     Elista * atual = lista->inicio;
@@ -151,6 +156,7 @@ Registro *encontra_paciente (Lista * lista, char rg[15])
     return NULL;
 }
 
+//Funcao de consultar o paciente na lista, sera solicitado ao usuario o RG do cara que ele quer consultar.
 void consulta_paciente(Lista * lista)
 {
     char rg[15];
@@ -173,6 +179,8 @@ void consulta_paciente(Lista * lista)
         printf("Idade: %d\n",r1->idade);
     }
 }
+
+//Funcao para atualizar o cadastro do paciente. para essa etapa iremos pedir todas as informacoes novamente ao usuario.
 void atualiza_cadastro(Lista * lista)
 {   
     printf("Atualizar os dados do paciente:\n");
@@ -195,7 +203,7 @@ void atualiza_cadastro(Lista * lista)
         printf("Paciente não cadastrado\n\n");
     }
     else
-    {
+    {//Solicitando informacoes.
         printf("Digite seu nome: ");
         scanf("%s", &nome);
         limpa_buffer();
@@ -215,7 +223,7 @@ void atualiza_cadastro(Lista * lista)
         
         printf("Digite ano de entrada: ");
         scanf("%d", &ano);
-
+        //Passando os valores para a struct Registro.
         strcpy(r1->nome, nome);
         strcpy(r1->rg, rg);
         r1->idade = idade;

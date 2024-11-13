@@ -20,7 +20,7 @@ Stack * criar_pilha()
     Stack * pilha = malloc(sizeof(Stack));
 
     pilha->topo = NULL;
-    pilha ->qtde =0;
+    pilha ->qtde = 0;
 
     return pilha;
 }
