@@ -142,6 +142,7 @@ int main(){
                 else
                 {
                     enqueue(fila,r1);
+                    push(pilha,r1);
                     printf("\nPaciente cadastrado");
                 }
             break;
@@ -153,6 +154,7 @@ int main(){
 
             case(8):
                 printf("Paciente removido da fila de atendimento.\n");
+                push(pilha,fila->head->registro);
                 dequeue(fila);
             break;
             
