@@ -133,7 +133,7 @@ int main(){
             break;
 
             case(8):
-                push(pilha, fila->head->registro, 0);
+                if(fila->qtde > 0) push(pilha, fila->head->registro, 0);
                 dequeue(fila);
             break;
             

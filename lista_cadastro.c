@@ -159,9 +159,10 @@ Registro *encontra_paciente (Lista * lista, char rg[15])
 //Funcao de consultar o paciente na lista, sera solicitado ao usuario o RG do cara que ele quer consultar.
 void consulta_paciente(Lista * lista)
 {
+    system("cls");
     char rg[15];
 
-    printf("Digite o RG do paciente que deseja buscar");
+    printf("Digite o RG do paciente que deseja buscar: ");
     scanf("%s",&rg);
     limpa_buffer();
 
@@ -172,24 +173,25 @@ void consulta_paciente(Lista * lista)
         printf("\nPaciente nao cadastrado\n\n");
     }
     else
-    {
-        printf("Informacoes do paciente:\n");
+    {   
+        printf("------------------------------\n");
+        printf("Informacoes do paciente:\n\n");
         printf("RG: %s\n",r1->rg);
         printf("Nome: %s\n",r1->nome);
         printf("Idade: %d\n",r1->idade);
+        printf("------------------------------\n");
     }
+    aguarda_retorno();
 }
 
 //Funcao para atualizar o cadastro do paciente. para essa etapa iremos pedir todas as informacoes novamente ao usuario.
 void atualiza_cadastro(Lista * lista)
 {   
-    printf("Atualizar os dados do paciente:\n");
+    system("cls");
+    printf("Atualizar os dados do paciente:\n\n");
 
     char rg[15];
-    int idade;
-    int dia;
-    int mes;
-    int ano;
+    int idade, dia, mes, ano;
     char nome[100];
 
     printf("Digite o RG do paciente que voce deseja atualizar: \n");
@@ -200,7 +202,7 @@ void atualiza_cadastro(Lista * lista)
 
     if(r1 == NULL)
     {    
-        printf("Paciente não cadastrado\n\n");
+        printf("Paciente nao cadastrado\n\n");
     }
     else
     {//Solicitando informacoes.
@@ -230,5 +232,9 @@ void atualiza_cadastro(Lista * lista)
         r1->Entrada->ano = ano;
         r1->Entrada->mes = mes;
         r1->Entrada->dia = dia;
+
+        printf("\nInformacoes atualizadas\n\n");
     }
+
+    aguarda_retorno();
 }
