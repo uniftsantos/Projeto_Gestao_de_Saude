@@ -7,17 +7,21 @@
 Celula_pilha * criar_celula(Registro* registro)
 {
     Celula_pilha *celula = malloc(sizeof(Celula_pilha));
+
     celula->registro = registro;
     celula->proximo = NULL;
     celula->flag_opercao = 0;
+
     return celula;
 }
 
 Stack * criar_pilha()
 {
     Stack * pilha = malloc(sizeof(Stack));
+
     pilha->topo = NULL;
     pilha ->qtde =0;
+
     return pilha;
 }
 
@@ -33,25 +37,28 @@ void push(Stack *pilha, Registro* registro, int flag)
 
 Registro *pop(Stack*pilha)
 {
-    if(pilha->qtde ==0){
+    if(pilha->qtde ==0)
+    {
         printf("Stack underflow");
         return NULL;
     }
 
-    Registro* registro = pilha->topo->registro;
+    Registro * registro = pilha->topo->registro;
     Celula_pilha * temp = pilha->topo;
+
     pilha->topo = pilha->topo->proximo;
-    pilha->qtde --;
+    pilha->qtde--;
+
     free(temp);
     return registro;
-
 }
 
 void show(Stack * pilha)
 {
     Celula_pilha * atual = pilha->topo;
     printf("TOPO-> ");
-    while(atual != NULL){
+    while(atual != NULL)
+    {
         printf("%s ", atual->registro->rg);
         atual = atual->proximo;
     }
@@ -60,31 +67,38 @@ void show(Stack * pilha)
 
 void desafazer(Stack * pilha, Queue * fila)
 {
-    if(pilha->topo->flag_opercao == 1)
+    if(pilha->qtde != 0)
     {
-        Celula * temp = fila->tail;
-
-        if(fila->qtde == 1)
+        if(pilha->topo->flag_opercao == 1)
         {
-            fila->head = NULL;
-            fila->tail = NULL;
+            Celula * temp = fila->tail;
+
+            if(fila->qtde == 1)
+            {
+                fila->head = NULL;
+                fila->tail = NULL;
+            }
+            else if(fila->qtde > 1)
+            {
+                temp->anterior->proximo = NULL;
+                fila->tail = temp->anterior;
+            }
+            pop(pilha);
+            free(temp);
+
+            fila->qtde--;   
         }
-        else if(fila->qtde > 1)
+        else
         {
-            temp->anterior->proximo = NULL;
-            fila->tail = temp->anterior;
+            Celula * novo = cria_celula(pilha->topo->registro);
+            Celula * temp = fila->head;
+                
+            fila->head = novo;
+            fila->head->proximo = temp;
+            fila->qtde++;
+
+            pop(pilha);
         }
-
-        pop(pilha);
-        free(temp);
-
-        fila->qtde--; 
     }
-    else
-    {
-        Celula * temp = fila->head;
-        
-        fila->head->registro = pilha->topo->registro;
-        fila->head->proximo = temp;
-    }
+    
 }

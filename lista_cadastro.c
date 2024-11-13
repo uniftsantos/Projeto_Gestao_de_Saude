@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "arvore.h"
 #include "lista_cadastro.h"
 #include "biblioteca_geral.h"
-#include "arvore.h"
 
 //Funcao para inicializar a lista  que contem a Elista. 
 Lista * inicicializa_lista_cadastro()
