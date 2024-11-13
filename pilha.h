@@ -15,7 +15,6 @@ typedef struct {
     int qtde;
 } Stack;
 
-
 Celula_pilha * criar_celula(Registro* registro);
 Registro *pop(Stack*pilha);
 Stack * criar_pilha();

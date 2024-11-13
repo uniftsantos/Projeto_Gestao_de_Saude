@@ -135,7 +135,6 @@ int main(){
             case(8):
                 push(pilha, fila->head->registro, 0);
                 dequeue(fila);
-                show(pilha);
             break;
             
             case(9):
