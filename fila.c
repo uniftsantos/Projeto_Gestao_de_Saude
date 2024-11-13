@@ -27,7 +27,6 @@ void enqueue(Queue * queue, Registro * registro){
     Celula *novo = cria_celula(registro);
     if(queue->qtde == 0){
         queue ->head = novo;      
-
     }
     else{
         queue ->tail -> proximo = novo;
@@ -47,7 +46,7 @@ void dequeue (Queue * queue){
     {
         Registro * registro = queue->head ->registro;
         Celula *temp = queue ->head;
-        queue -> head = queue ->head -> proximo;
+        queue->head = queue->head->proximo;
 
         if(queue->qtde == 1)
         {

@@ -21,11 +21,8 @@ int main(){
 
     Stack * pilha = criar_pilha();
 
-
-
     while (chek)
     {
-        
         Registro * paciente = inicia_registro();
 
         char nome[100];
@@ -86,23 +83,7 @@ int main(){
             break;
             
             case(3):
-                printf("Digite o RG do paciente que voce deseja consultar: \n");
-                scanf("%s",&rg);
-                limpa_buffer();
-
-                Registro * r1 = encontra_paciente(lista, rg);
-
-                if(r1 == NULL)
-                {
-                    printf("\nPaciente nao cadastrado\n\n");
-                }
-                else
-                {
-                    printf("Informacoes do paciente:\n");
-                    printf("RG: %s\n",r1->rg);
-                    printf("Nome: %s\n",r1->nome);
-                    printf("Idade: %d\n",r1->idade);
-                }
+                consulta_paciente(lista);
             break;
 
             case(4):
@@ -115,7 +96,7 @@ int main(){
                 scanf("%s",&rg);
                 limpa_buffer();
 
-                r1 = encontra_paciente(lista, rg);
+                Registro * r1 = encontra_paciente(lista, rg);
 
                 if(r1 == NULL)
                 {
@@ -142,20 +123,19 @@ int main(){
                 else
                 {
                     enqueue(fila,r1);
-                    push(pilha,r1);
+                    push(pilha, r1, 1);
                     printf("\nPaciente cadastrado");
                 }
             break;
 
             case(7):
-                printf("Fila de atendimento:\n");
                 Show(fila);
             break;
 
             case(8):
-                printf("Paciente removido da fila de atendimento.\n");
-                push(pilha,fila->head->registro);
+                push(pilha, fila->head->registro, 0);
                 dequeue(fila);
+                show(pilha);
             break;
             
             case(9):
@@ -175,7 +155,7 @@ int main(){
             break;
 
             case(13):
-                //CTRL Z
+                desafazer(pilha, fila);
             break;
             
             case(14):

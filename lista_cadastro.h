@@ -45,6 +45,7 @@ Registro * encontra_paciente (Lista * lista, char rg[15]);
 //Funcao onde incializamos a Elista, que contem as informacoes de registro do paciente e a data que ele foi.
 Elista * inicicializa_elista_cadastro(Registro * paciente);
 
+void consulta_paciente(Lista * lista);
 void inserir_lista_cadastro(Lista *lista, Registro * registro);
 void atualiza_cadastro(Lista * lista);
 void mostrar_lista_cadastro (Lista * lista);
