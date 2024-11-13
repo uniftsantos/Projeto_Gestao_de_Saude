@@ -16,6 +16,7 @@ Lista * inicicializa_lista_cadastro()
     return lista_cadastro;
 }
 
+//Funcao para iniciliziar nosso registro, que contem informacoes do paciente.
 Registro * inicia_registro()
 {
     Registro* registro = malloc(sizeof(Registro));
@@ -24,6 +25,7 @@ Registro * inicia_registro()
     return registro;
 }
 
+//Funcao para inicilizar a Data de entrada
 Data * inicia_data()
 {
     Data *data = malloc(sizeof(Data));

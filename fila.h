@@ -24,5 +24,6 @@ void enqueue(Queue * queue, Registro *registro);
 void dequeue (Queue * queue);
 
 void Show (Queue * queue);
+void Show_invertido(Queue * queue);
 
 #endif 
