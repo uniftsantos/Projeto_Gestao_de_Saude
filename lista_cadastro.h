@@ -3,6 +3,7 @@
 
 //Declarando as estruturas solicitados para o desenvolvimento do projeto.
 
+//Estrutura da Data
 typedef struct 
 {
     int dia;
@@ -10,7 +11,7 @@ typedef struct
     int ano;
 } Data;
 
-
+//Estrutura de Registro
 typedef struct 
 {
     char nome[100];
@@ -34,15 +35,12 @@ typedef struct
 
 }Lista;
 
+//Declaracao das funcoes usadas na "bilioteca.c"
 
 Data * inicia_data();
-//Funcao para inicializar a lista  que contem a Elista. 
 Lista * inicicializa_lista_cadastro();
-
 Registro * inicia_registro();
 Registro * encontra_paciente (Lista * lista, char rg[15]);
-
-//Funcao onde incializamos a Elista, que contem as informacoes de registro do paciente e a data que ele foi.
 Elista * inicicializa_elista_cadastro(Registro * paciente);
 
 void consulta_paciente(Lista * lista);

@@ -124,7 +124,7 @@ int main(){
                 {
                     enqueue(fila,r1);
                     push(pilha, r1, 1);
-                    printf("\nPaciente cadastrado");
+                    printf("\nPaciente cadastrado\n\n");
                 }
             break;
 
