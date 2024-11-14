@@ -68,13 +68,24 @@ int main(){
                 strcpy(paciente->nome, nome);
                 strcpy(paciente->rg, rg);
 
-                inserir_lista_cadastro(lista, paciente); //insere na lista de cadastro.
-                inserir_ordenado_idade(arvore_idade, paciente); //insere na arvore de idade
-                inserir_ordenado_ano(arvore_ano, paciente);//insere na arvore de ano
-                inserir_ordenado_mes(arvore_mes, paciente);//insere na arvore de mes
-                inserir_ordenado_dia(arvore_dia, paciente);//insere na arvore de dia
+                Registro *x = encontra_paciente(lista, rg); //Consultamos se esse RG existe na lista atual
+                int y = consulta_arquivo(rg); //Consultamos se esse RG existe no arquivo
 
-                printf("\nPaciente Cadastrado com sucesso.\n\n");
+                if(x == NULL || y == 1)
+                {
+                    printf("Ja existe um paciente cadastrado com esse RG\n");
+                }
+                else
+                {
+                    inserir_lista_cadastro(lista, paciente); //insere na lista de cadastro.
+                    inserir_ordenado_idade(arvore_idade, paciente); //insere na arvore de idade
+                    inserir_ordenado_ano(arvore_ano, paciente);//insere na arvore de ano
+                    inserir_ordenado_mes(arvore_mes, paciente);//insere na arvore de mes
+                    inserir_ordenado_dia(arvore_dia, paciente);//insere na arvore de dia
+
+                    printf("\nPaciente Cadastrado com sucesso.\n\n");
+                }
+
                 aguarda_retorno();
             break;
 

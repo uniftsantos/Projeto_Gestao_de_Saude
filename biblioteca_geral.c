@@ -53,21 +53,26 @@ void limpa_buffer()
 
 void salvar_lista(Lista * lista) 
 {
+    // Abrimos o arquivo no modo de escrita em binario
     FILE *arquivo = fopen("Arquivos/registrosArmazenados.txt", "wb");
     Elista * atual = lista->inicio;
 
-    if (arquivo == NULL)
+    if (arquivo == NULL)// Verificamos se foi possível abrir o arquivo
     {
         printf("Erro ao abrir o arquivo para salvar.\n");
         return;
     }
 
+    // Escrevemos a quantidade no inicio do arquivo
     fwrite(&(lista->quantidade), sizeof(int), 1, arquivo);
 
+    // Começamos um laço para percorrer a lista
     while (atual != NULL) 
     {
 
+        //Escrevemos cada registro 
         fwrite(atual->dados, sizeof(Registro), 1, arquivo);
+        //Dps escrevemos cada data
         fwrite(atual->dados->Entrada, sizeof(Data), 1, arquivo);
 
         atual = atual->proximo;
@@ -76,35 +81,73 @@ void salvar_lista(Lista * lista)
     fclose(arquivo);
 }
 
+int consulta_arquivo(char rg[15])
+{
+    FILE *arquivo = fopen("Arquivos/registrosArmazenados.txt", "rb"); 
+
+    int quantidade;
+
+    //Lemos a quantidade que tem armazenada
+    fread(&quantidade, sizeof(int), 1, arquivo); 
+    printf("\n %d REGISTROS CARREGADOS\n\n", quantidade);
+
+    //Começamos um laço baseado na quantidade
+    for (int i = 0; i < quantidade; i++) 
+    {
+        //Lemos os registros e datas armazenados 
+        Registro * registro = inicia_registro();
+        Data *data = inicia_data();  
+
+        fread(registro, sizeof(Registro), 1, arquivo);
+        fread(data, sizeof(Data), 1, arquivo);
+        
+        //Montamos um registro completo
+        registro->Entrada = data;
+
+        if(strcmp(registro->rg, rg) == 0)
+        {
+            return 1;
+        }
+        //Colocamos numa fila
+    }
+    return 0;
+}
 void carregar_lista(Lista *lista, Arvore * arvore_idade, Arvore * arvore_dia, Arvore * arvore_mes, Arvore * arvore_ano) {
+    //Abrimos o arquivo em modo leitura
     FILE *arquivo = fopen("Arquivos/registrosArmazenados.txt", "rb"); 
     Queue * fila = cria_queue();
 
     int quantidade;
 
     if (arquivo == NULL) 
-    {
+    {// Verificamos erro na hora de abrir o arquivo
         printf("Erro ao abrir o arquivo para leitura.\n");
         return;
     }
 
+    //Lemos a quantidade que tem armazenada
     fread(&quantidade, sizeof(int), 1, arquivo); 
-    printf("\n %d REGISTROS CARREGADOS\n", quantidade);
+    printf("\n %d REGISTROS CARREGADOS\n\n", quantidade);
 
+    //Começamos um laço baseado na quantidade
     for (int i = 0; i < quantidade; i++) 
     {
+        //Lemos os registros e datas armazenados 
         Registro * registro = inicia_registro();
         Data *data = inicia_data();  
 
         fread(registro, sizeof(Registro), 1, arquivo);
         fread(data, sizeof(Data), 1, arquivo);
-
+        
+        //Montamos um registro completo
         registro->Entrada = data;
 
+        //Colocamos numa fila
         enqueue(fila, registro);
     }
 
     Celula * atual = fila->tail;
+    //Usamos o show invertido para inserir cada valor na ordem correta na lista e nas arvores de busca
     while(atual != NULL)
     {
         inserir_lista_cadastro(lista, atual->registro);
