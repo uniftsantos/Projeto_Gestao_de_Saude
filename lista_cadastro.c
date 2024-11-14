@@ -8,43 +8,43 @@
 //Funcao para inicializar a lista  que contem a Elista. 
 Lista * inicicializa_lista_cadastro()
 {
-    Lista *lista_cadastro = malloc(sizeof(Lista));
+    Lista *lista_cadastro = malloc(sizeof(Lista)); //aloca dinamicamente
 
-    lista_cadastro->inicio = NULL;
-    lista_cadastro->quantidade = 0;
+    lista_cadastro->inicio = NULL; //ponterio inicio comeca em null
+    lista_cadastro->quantidade = 0; //ponteiro para quantidade comeca com 0
 
-    return lista_cadastro;
+    return lista_cadastro; //retorna uma Lista
 }
 
 //Funcao para iniciliziar nosso registro, que contem informacoes do paciente.
 Registro * inicia_registro()
 {
-    Registro* registro = malloc(sizeof(Registro));
-    registro->Entrada = inicia_data();
+    Registro* registro = malloc(sizeof(Registro)); //aloca dinamicamente
+    registro->Entrada = inicia_data(); //ponteiro para Entrada recebe a funcao que inicializa a data.
 
-    return registro;
+    return registro; //retorna um Registro
 }
 
 //Funcao para inicializar a Data de entrada do paciente.
 Data * inicia_data()
 {
-    Data *data = malloc(sizeof(Data));
-    data->dia = 0;
-    data->mes = 0;
-    data->ano = 0;
+    Data *data = malloc(sizeof(Data)); //aloca dinamicamente
+    data->dia = 0; //ponteiro dia comeca com 0
+    data->mes = 0; //ponteiro mes comeca com 0
+    data->ano = 0; //ponteiro ano comeca com 0
 
-    return data;
+    return data; //retorna uma Data
 }
 
 //Funcao onde incializamos a Elista, que contem as informacoes de registro do paciente e a data que ele foi.
 Elista * inicicializa_elista_cadastro(Registro * paciente)
 {
-    Elista *elista = malloc(sizeof(Elista));
+    Elista *elista = malloc(sizeof(Elista)); //aloca dinamicamente
 
-    elista->dados = paciente;
-    elista->proximo = NULL;
+    elista->dados = paciente; //ponteiro dados recebe o Registro
+    elista->proximo = NULL; //ponteiro proximo comeca com null
 
-    return elista;
+    return elista; //Retorna uma Elista
 }
 
 
@@ -65,7 +65,7 @@ void inserir_lista_cadastro(Lista *lista, Registro * registro)
 void mostrar_lista_cadastro(Lista * lista)
 {
     system("cls");//Limpa o terminal
-    if(lista->quantidade == 0)
+    if(lista->quantidade == 0)//verifica se a lista cadastro esta vazia
     {
         printf("Lista de cadastro vazia.\n");
     }
@@ -75,7 +75,7 @@ void mostrar_lista_cadastro(Lista * lista)
 
         printf("PACIENTES CADASTRADOS:\n\n");
 
-        while (atual != NULL )
+        while (atual != NULL )//percorre a Lista.
         {
             printf("Nome: %s\n", atual->dados->nome);
             printf("Idade: %d\n",atual->dados->idade);

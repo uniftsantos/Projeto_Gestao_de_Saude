@@ -5,23 +5,23 @@
 
 //Funcao para inicilizar a Celula.
 Celula * cria_celula(Registro * registro){
-    Celula *celula = malloc(sizeof(Celula));
+    Celula *celula = malloc(sizeof(Celula)); //aloca dinamicamente
 
-    celula ->anterior = NULL;
-    celula ->proximo = NULL;
-    celula -> registro = registro;
+    celula ->anterior = NULL; //ponterio para anterior comeca null
+    celula ->proximo = NULL; //ponteiro para proximo comeca null
+    celula -> registro = registro; // ponteiro para registro recebe o parametro da funcao
 
     return celula;
 }
 
 //Funcao para inicializar a Queue que ira armezanar as Celula.
 Queue *cria_queue(){
-    Queue * queue = malloc(sizeof(Queue));
-    queue->head = NULL;
-    queue ->tail = NULL;
-    queue -> qtde =0;
+    Queue * queue = malloc(sizeof(Queue)); //aloca dinamicamente
+    queue->head = NULL; //ponteiro para head comeca null
+    queue ->tail = NULL; // ponteiro para tail comeca null
+    queue -> qtde =0; // ponteiro para qtde comeca em 0
 
-    return queue;
+    return queue; //retorna uma Queue
 }
 
 //Funcao de enfilerar o Registros na nossa fila.
@@ -30,9 +30,9 @@ void enqueue(Queue * queue, Registro * registro){
     if(queue->qtde == 0){//Quando nao temos nenhum elemento na fila, iremos colocar o registro no comeco da fila(head=posicao de remocao).
         queue ->head = novo;      
     }
-    else{//Quando ja temos um elemento na fila.
-        queue ->tail -> proximo = novo;
-        novo ->anterior = queue->tail;
+    else{//Quando ja temos um elemento na fila. 
+        queue ->tail -> proximo = novo;//ponteiro do proximo recebe o novo
+        novo ->anterior = queue->tail; //o ponteiro do novo anterior recebe a posicao de insercao
 
     }
     queue ->tail = novo; //recebe o novo elemento.
@@ -68,7 +68,7 @@ void dequeue (Queue * queue){
 //Funcao que percorre a nossa fila e vai printando o paciente.
 void Show (Queue * queue){
     Celula * atual = queue ->head; //pega o comeco da fila 
-    while(atual != NULL){
+    while(atual != NULL){ //loop que percorre a Queue
         printf("Paciente: %s == portador do rg %s \n",atual->registro->nome, atual->registro->rg);
         atual = atual ->proximo;
     }
@@ -78,7 +78,7 @@ void Show (Queue * queue){
 //Funcao que percorre a nossa fila ao contrario.
 void Show_invertido(Queue * queue){
     Celula * atual = queue -> tail;//comeca no final da fila.
-    while(atual != NULL)
+    while(atual != NULL)//loop que percorre a Queue
     {
         atual = atual ->anterior;
     }

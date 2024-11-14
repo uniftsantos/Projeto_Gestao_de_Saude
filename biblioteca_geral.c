@@ -5,6 +5,7 @@
 #include "arvore.h"
 #include "fila.h"
 
+//Funcao menu, onde temos o print de todas as opcoes que o usuario podera escolher.
 void menu()
 {
     printf("MENU GERENCIAMENTO DE SAÚDE:\n");
@@ -27,20 +28,28 @@ void menu()
     printf("11 - Mostrar ordenado por mes.\n");
     printf("12 - Mostrar ordenado por dia.\n");
 
+    //Pilha
     printf("13 - Desfazer operacao.\n");
+
+    //Operacao de carregar/salvar os registros.
     printf("14 - Carregar.\n");
     printf("15 - Salvar.\n");
 
+    //Sobre
     printf("16 - Informacao dos desenvolvedores.\n");
+
+    //Sai do programa
     printf("17 - Sair\n");
     printf("Digite o numero da acao que deseja realizar.\n");
 }
 
+//Funcao limpa_buffer usamos após solicitar alguma informacao para o usuario, com o proposito de nao pegar um espaco vazio.
 void limpa_buffer()
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) { }
 }
+
 
 void salvar_lista(Lista * lista) 
 {
@@ -110,6 +119,7 @@ void carregar_lista(Lista *lista, Arvore * arvore_idade, Arvore * arvore_dia, Ar
     fclose(arquivo);
 }
 
+//Funcao confirma ira solicitar para que o usuario digite 1, essa funcao retorna o valor que o usuario digitou.
 int confirma()
 {
     int x;
@@ -121,6 +131,8 @@ int confirma()
     return x;
 
 }
+
+//Funcao aguarda retorno, fica em um loop chamando a funcao confirma, so ira sair quando o usuario realmente digitar o valor solicitado.
 void aguarda_retorno()
 {
     int x = 0;
@@ -128,4 +140,18 @@ void aguarda_retorno()
     {
         x = confirma();
     }
+}
+
+//Funcao que printa informacoes sobre os desenvolvedores, conforme solicitado durante o projeto.
+void sobre(){
+    system("cls");
+    printf("INFORMACOES SOBRE OS DESENVOLVEDORES:\n");
+    printf("Henrique Finatii RA:22.123.030-0\n");
+    printf("Tiago Fagundes RA:22.123.017-0\n");
+    printf("4 Ciclo\n");
+    printf("Curso: Ciencia da Computacao\n");
+    printf("Disciplina: Estrtura de dados\n");
+    printf("Data: 11/11/2024\n\n");
+    aguarda_retorno();
+    
 }

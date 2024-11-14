@@ -3,35 +3,41 @@
 #include <string.h>
 #include "arvore.h"
 
+//Funcao responsavel por inicializar a nossa struct Vertice.
 Vertice *cria_vertice(Registro * registro)
 {
-	Vertice* novo = malloc(sizeof(Vertice));
+	Vertice* novo = malloc(sizeof(Vertice)); //aloca dinamicamente
 
-	novo->direito = NULL;
-	novo->esquerdo = NULL;
-    novo->pai = NULL;
+	novo->direito = NULL; //ponteiro para fiho_direito comeca null
+	novo->esquerdo = NULL; //ponterio para filho_esquerdo comeca null
+    novo->pai = NULL; //ponteiro pai recebe null
 
-	novo->registro = registro;
+	novo->registro = registro; //ponteiro do registro recebe o paremetro da funcao
 	
 	return novo;
 }
 
+//Funcao responsavel por inicializar a nossa struct Arvore.
 Arvore *cria_arvore()
 {
-	Arvore* arvore = malloc(sizeof(Arvore));
+	Arvore* arvore = malloc(sizeof(Arvore)); //aloca dinamicamente
 
-	arvore->raiz = NULL;
-	arvore->quantidade = 0;
+	arvore->raiz = NULL; //ponteiro para raiz comeca null
+	arvore->quantidade = 0; //ponteiro para quantidade comeca em 0
 
 	return arvore;
 }
 
+//Funcao responsavel por printar as informacoes que estao no Registro.
 void visitar (Vertice * vertice)
 {
     printf("Nome: %s\n", vertice->registro->nome);
     printf("RG: %s\n", vertice->registro->rg);
+    printf("Idade: %d\n",vertice->registro->idade);
+    printf("Data de Entrada: %.2d/%.2d/%d\n\n",vertice->registro->Entrada->dia,vertice->registro->Entrada->mes, vertice->registro->Entrada->ano);
 }
 
+//Funcao responsavel por percorrer nossa arvore em ordem crescente.(funcao recursiva, dentro dela chamos a funcao visitar).
 void in_ordem(Vertice *raiz)
 {
     if(raiz != NULL)
@@ -42,81 +48,64 @@ void in_ordem(Vertice *raiz)
     }
 }
 
-void pre_ordem(Vertice *raiz)
-{
-    if(raiz != NULL)
-    {
-        visitar(raiz);
-        pre_ordem(raiz->esquerdo);
-        pre_ordem(raiz->direito);
-    }
-}
-
-void pos_ordem(Vertice *raiz)
-{
-    if(raiz != NULL)
-    {
-        pos_ordem(raiz->esquerdo);
-        pos_ordem(raiz->direito);
-        visitar(raiz);
-    }
-}
 
 
+//Função que encontra a posição de inserção de um novo registro na arvore.
 Vertice *encontra_posicao(Arvore *arvore, Registro * registro, int orientacao)
 {
     Vertice *atual = arvore->raiz;
     Vertice *anterior = NULL;
 
-    while(atual != NULL){
+    while(atual != NULL){//loop para percorrer a arvore.
 
-        if(orientacao == 1)
+        
+        if(orientacao == 1) //se for 1 compara pela idade.
         {
-            if(registro->idade <= atual->registro->idade)
+            if(registro->idade <= atual->registro->idade)//move para o filho esquerdo se a idade for menor ou igual
             {   
                 anterior = atual;
                 atual = atual->esquerdo;
             }
             else
-            {
+            {//move para o filho direito.
                 anterior = atual;
                 atual = atual->direito;
             }
         }
-        else if(orientacao == 2)
+        else if(orientacao == 2) //se for 2 compara pelo ano.
         {
-            if(registro->Entrada->ano <= atual->registro->Entrada->ano)
+            if(registro->Entrada->ano <= atual->registro->Entrada->ano)//move para o filho esquerdo se o ano for menor ou igual
             {   
                 anterior = atual;
                 atual = atual->esquerdo;
             }
             else
-            {
+            {//move para o filho direito.
                 anterior = atual;
                 atual = atual->direito;
             }
         }
-        else if(orientacao == 3)
+        else if(orientacao == 3)//se for 3 compara pelo mês.
         {
-            if(registro->Entrada->mes <= atual->registro->Entrada->mes)
+            if(registro->Entrada->mes <= atual->registro->Entrada->mes)//move para o filho esquerdo se o mes for menor ou igual
             {   
                 anterior = atual;
                 atual = atual->esquerdo;
             }
             else
-            {
+            {//move para o filho direito.
                 anterior = atual;
                 atual = atual->direito;
             }
-        }else if(orientacao == 4)
+        }else if(orientacao == 4)//se for 4 compara pelo dia.
         {
-            if(registro->Entrada->dia <= atual->registro->Entrada->dia)
+            if(registro->Entrada->dia <= atual->registro->Entrada->dia)//move para o filho esquerdo se o dia for menor ou igual
             {   
                 anterior = atual;
                 atual = atual->esquerdo;
             }
             else
-            {
+            {//move para o filho direito.
                 anterior = atual;
                 atual = atual->direito;
             }
@@ -125,6 +114,8 @@ Vertice *encontra_posicao(Arvore *arvore, Registro * registro, int orientacao)
     return anterior;
 }
 
+//Funcao de insercao ordenada pela idade: se a proxima idade a ser inserida for menor que a idade que se encontra no 'pai', 
+//sera inserido na esquerda caso contrario, sera inserido na direita e aumentamos a quantidade de elementos na arvore.
 void inserir_ordenado_idade(Arvore *arvore, Registro *registro)
 {
     Vertice *novo = cria_vertice(registro);
@@ -136,7 +127,7 @@ void inserir_ordenado_idade(Arvore *arvore, Registro *registro)
     }
     else
     {
-        Vertice *vertice = encontra_posicao(arvore, registro, 1);
+        Vertice *vertice = encontra_posicao(arvore, registro, 1);//chamando a funcao que encontra a posicao de insercao
 
         if(novo->registro->idade <= vertice->registro->idade)
         {
@@ -153,6 +144,8 @@ void inserir_ordenado_idade(Arvore *arvore, Registro *registro)
     arvore->quantidade++;
 }
 
+//Funcao de insercao ordenada pelo ano: se o proximo ano a ser inserido for menor que o ano que se encontra no 'pai', 
+//sera inserido na esquerda caso contrario, sera inserido na direita e aumentamos a quantidade de elementos na arvore.
 void inserir_ordenado_ano (Arvore * arvore, Registro *registro)
 {
     Vertice * novo = cria_vertice(registro);
@@ -163,7 +156,7 @@ void inserir_ordenado_ano (Arvore * arvore, Registro *registro)
     }
     else
     {        
-        Vertice *vertice = encontra_posicao(arvore, registro, 2);
+        Vertice *vertice = encontra_posicao(arvore, registro, 2);//chamando a funcao que encontra a posicao de insercao
 
         if(novo->registro->Entrada->ano <= vertice->registro->Entrada->ano)
         {
@@ -180,6 +173,8 @@ void inserir_ordenado_ano (Arvore * arvore, Registro *registro)
     arvore->quantidade++;
 }
 
+//Funcao de insercao ordenada pelo mes: se o proximo mes a ser inserido for menor que o mes que se encontra no 'pai', 
+//sera inserido na esquerda caso contrario, sera inserido na direita e aumentamos a quantidade de elementos na arvore.
 void inserir_ordenado_mes (Arvore * arvore, Registro *registro)
 {
     Vertice * novo = cria_vertice(registro);
@@ -190,7 +185,7 @@ void inserir_ordenado_mes (Arvore * arvore, Registro *registro)
     }
     else
     {
-        Vertice *vertice = encontra_posicao(arvore, registro, 3);
+        Vertice *vertice = encontra_posicao(arvore, registro, 3);//chamando a funcao que encontra a posicao de insercao
 
         if(novo->registro->Entrada->mes <= vertice->registro->Entrada->mes)
         {
@@ -207,6 +202,8 @@ void inserir_ordenado_mes (Arvore * arvore, Registro *registro)
     arvore->quantidade++;
 }
 
+//Funcao de insercao ordenada pelo dia: se o proximo dia a ser inserido for menor que o dia que se encontra no 'pai', 
+//sera inserido na esquerda caso contrario, sera inserido na direita e aumentamos a quantidade de elementos na arvore.
 void inserir_ordenado_dia (Arvore * arvore, Registro *registro)
 {
     Vertice * novo = cria_vertice(registro);
@@ -216,7 +213,7 @@ void inserir_ordenado_dia (Arvore * arvore, Registro *registro)
     }
     else
     {
-        Vertice *vertice = encontra_posicao(arvore, registro, 4);
+        Vertice *vertice = encontra_posicao(arvore, registro, 4);//chamando a funcao que encontra a posicao de insercao
 
         if(novo->registro->Entrada->dia <= vertice->registro->Entrada->dia)
         {

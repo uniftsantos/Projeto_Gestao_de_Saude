@@ -23,7 +23,7 @@ int main(){
 
     while (chek)
     {
-        Registro * paciente = inicia_registro();
+        Registro * paciente = inicia_registro(); //Inicialiazando nosso registro toda vez que o loop acabar.
 
         char nome[100];
         char rg[15];
@@ -35,9 +35,9 @@ int main(){
 
         switch(opcao)
         {
-            case(1):
+            case(1): //opcao 1, cadastro o usuario na lista.
                 system("cls");
-
+                //solicitando todas as informacoes necessarias.
                 printf("Digite seu nome: ");
                 scanf("%s", &nome);
                 limpa_buffer();
@@ -67,36 +67,37 @@ int main(){
                 // Copia valores para a estrutura paciente
                 strcpy(paciente->nome, nome);
                 strcpy(paciente->rg, rg);
-                inserir_lista_cadastro(lista, paciente);
 
-                inserir_ordenado_idade(arvore_idade, paciente);
-                inserir_ordenado_ano(arvore_ano, paciente);
-                inserir_ordenado_mes(arvore_mes, paciente);
-                inserir_ordenado_dia(arvore_dia, paciente);
+                inserir_lista_cadastro(lista, paciente); //insere na lista de cadastro.
+                inserir_ordenado_idade(arvore_idade, paciente); //insere na arvore de idade
+                inserir_ordenado_ano(arvore_ano, paciente);//insere na arvore de ano
+                inserir_ordenado_mes(arvore_mes, paciente);//insere na arvore de mes
+                inserir_ordenado_dia(arvore_dia, paciente);//insere na arvore de dia
 
                 printf("\nPaciente Cadastrado com sucesso.\n\n");
                 aguarda_retorno();
             break;
 
             case(2):
-                mostrar_lista_cadastro(lista);
+                mostrar_lista_cadastro(lista); //mostra todos os pacientes cadastrados.
             break;
             
             case(3):
-                consulta_paciente(lista);
+                consulta_paciente(lista);//funcao de consultar paciente especifico ja existente na lista
             break;
 
             case(4):
-                atualiza_cadastro(lista);
+                atualiza_cadastro(lista);//funcao de atualizar cadastro ja existente na lista.
             break;
 
             case(5):
                 printf("Remocao de paciente:\n");
                 printf("Digite o RG do paciente que voce deseja remover da lista: \n");
-                scanf("%s",&rg);
+                scanf("%s",&rg);//solicita ao usuario o rg que ele quer remover.
                 limpa_buffer();
 
-                Registro * r1 = encontra_paciente(lista, rg);
+                Registro * r1 = encontra_paciente(lista, rg);//vai retornar o Registro caso esse rg exista na lista_cadastro
+
 
                 if(r1 == NULL)
                 {
@@ -104,17 +105,17 @@ int main(){
                 }
                 else
                 {
-                    remover(lista,r1);
+                    remover(lista,r1);//removendo o paciente da lista.
                     printf("Paciente removido com sucesso.\n");
                 }
             break;
 
             case(6):
-                printf("Digite RG do paciente cadastrado para insercao de atendimento: ");
-                scanf("%s",&rg);
+                printf("Digite RG do paciente cadastrado para insercao de atendimento: "); 
+                scanf("%s",&rg);//solicita ao usuario um rg para inserir na fila
                 limpa_buffer();
 
-                r1 = encontra_paciente(lista, rg);
+                r1 = encontra_paciente(lista, rg); //vai retornar o Registro caso esse rg exista na lista_cadastro
 
                 if(r1 == NULL)
                 {
@@ -122,55 +123,60 @@ int main(){
                 }
                 else
                 {
-                    enqueue(fila,r1);
-                    push(pilha, r1, 1);
+                    enqueue(fila,r1); //enfilera
+                    push(pilha, r1, 1); //salva na pilha para realizar o ctrl + z
                     printf("\nPaciente cadastrado\n\n");
                 }
             break;
 
             case(7):
-                Show(fila);
+                if(fila->qtde == 0){//Verificao se a fila esta vazia.
+                    printf("Nao ha pacientes na fila.\n\n");
+                }
+                else{
+                    Show(fila); //printa todos os elementos da fila.
+                }
             break;
 
             case(8):
-                if(fila->qtde > 0) push(pilha, fila->head->registro, 0);
-                dequeue(fila);
+                if(fila->qtde > 0) push(pilha, fila->head->registro, 0);//verifacao se a fila esta vazia para poder desenfilerar.
+                dequeue(fila); //desenfilerar a fila
             break;
             
             case(9):
-                in_ordem(arvore_idade->raiz);
+                in_ordem(arvore_idade->raiz); //mostra ordenado pela idade
             break;
             
             case(10):
-                in_ordem(arvore_ano->raiz);
+                in_ordem(arvore_ano->raiz); //mostra ordenado pelo ano
             break;
             
             case(11):
-                in_ordem(arvore_mes->raiz);
+                in_ordem(arvore_mes->raiz); //mostra ordenado pelo mes
             break;
             
             case(12):
-                in_ordem(arvore_dia->raiz);
+                in_ordem(arvore_dia->raiz); //mostra ordenado pelo dia
             break;
 
             case(13):
-                desafazer(pilha, fila);
+                desafazer(pilha, fila); // ctrl + z
             break;
             
             case(14):
-                carregar_lista(lista, arvore_idade, arvore_dia, arvore_mes, arvore_ano);
+                carregar_lista(lista, arvore_idade, arvore_dia, arvore_mes, arvore_ano);//carrega os registros para a lista_cadastro.
             break;
 
             case(15):
-                salvar_lista(lista);
+                salvar_lista(lista); //salvando os cadastros atuais na nossa lista_cadastro no "registrosArmazenados.txt"
             break;
 
             case(16):
-                //Sobre
+                sobre();//chamando funcao que printa as informacoes sobre os desenvolvedores.
             break;
 
             case(17):
-                chek = 0;
+                chek = 0; // para acabar com o codigo, encerrando o loop.
             break;
             
         }    

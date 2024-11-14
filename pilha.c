@@ -4,55 +4,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Funcao para inicializar a celula que contem o Registro;
 Celula_pilha * criar_celula(Registro* registro)
 {
-    Celula_pilha *celula = malloc(sizeof(Celula_pilha));
+    Celula_pilha *celula = malloc(sizeof(Celula_pilha)); //aloca dinamicamente
 
-    celula->registro = registro;
-    celula->proximo = NULL;
-    celula->flag_opercao = 0;
+    celula->registro = registro; //ponteiro para o registro ira receber o parametro da funcao.
+    celula->proximo = NULL; //ponterio para o proximo recebe null
+    celula->flag_opercao = 0; //ponterio para o flag_opercao comeca com 0
 
-    return celula;
+    return celula; //retorna uma Celula_pilha
 }
 
+//Funcao para inicializar a nossa pilha que ira conter as Celulas
 Stack * criar_pilha()
 {
-    Stack * pilha = malloc(sizeof(Stack));
+    Stack * pilha = malloc(sizeof(Stack)); //aloca dinamicamente
 
-    pilha->topo = NULL;
-    pilha ->qtde = 0;
+    pilha->topo = NULL; //ponteiro para o topo recebe null
+    pilha ->qtde = 0; //ponteiro para qtd comeca com 0.
 
-    return pilha;
+    return pilha; //retorna uma Stack
 }
 
-void push(Stack *pilha, Registro* registro, int flag)
+//Funcao push serve para inserir de todas as instrucoes feitas na fila, dentro da pilha. Usamos mais um parametro tambem para saber o 
+//tipo de operacao que foi realizado na fila:
+//insecao ou remocao, pois na hora de usar o "ctrl + z" precisamos diferenciar um do outro pois sao maneiras diferentes de desfazer 
+// a ultima instrucao (1= insercao e 0 = remocao).
+
+void push(Stack *pilha, Registro* registro, int flag)//Insercao sempre feita no topo
 {
     Celula_pilha * novo = criar_celula(registro);
     novo->proximo = pilha->topo;
     novo->flag_opercao = flag;
 
-    pilha->topo = novo;
-    pilha->qtde++;
+    pilha->topo = novo; //ponteiro do topo apontando para o novo Registro
+    pilha->qtde++; //aumentando a quantidade 
 }
 
+//Funcao pop ira remover o Registro que se esta na Pilha.
 Registro *pop(Stack*pilha)
 {
-    if(pilha->qtde ==0)
+    if(pilha->qtde ==0)//verifica se a quantidade for 0.
     {
         printf("Stack underflow");
         return NULL;
     }
 
-    Registro * registro = pilha->topo->registro;
-    Celula_pilha * temp = pilha->topo;
+    Registro * registro = pilha->topo->registro; // pegando o Registro
+    Celula_pilha * temp = pilha->topo; //armazena o valor que esta no topo.
 
-    pilha->topo = pilha->topo->proximo;
-    pilha->qtde--;
+    pilha->topo = pilha->topo->proximo; // ponteiro do topo recebe o elemento que esta 'abaixo' dele dentro da pilha.
+    pilha->qtde--; //diminui a quantidade de elementos que estavam na pilha
 
-    free(temp);
+    free(temp); //libera o valor na memoria
     return registro;
 }
 
+//Funcao Show, que ira percorrer nossa pilha e printa o rg dos elementos, usamos essa funcao para debug.
 void show(Stack * pilha)
 {
     Celula_pilha * atual = pilha->topo;
