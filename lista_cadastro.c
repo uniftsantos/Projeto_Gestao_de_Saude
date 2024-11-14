@@ -213,9 +213,9 @@ void atualiza_cadastro(Lista * lista)
         printf("\nDigite sua idade: ");
         scanf("%d", &idade);
 
-        printf("\nDigite seu documento: ");
-        scanf("%s", &rg);
-        limpa_buffer();
+        //printf("\nDigite seu documento: ");
+        //scanf("%s", &rg);
+        //limpa_buffer();
 
         printf("\nDigite dia de entrada: ");
         scanf("%d", &dia);
@@ -227,7 +227,7 @@ void atualiza_cadastro(Lista * lista)
         scanf("%d", &ano);
         //Passando os valores para a struct Registro.
         strcpy(r1->nome, nome);
-        strcpy(r1->rg, rg);
+        //strcpy(r1->rg, rg);
         r1->idade = idade;
         r1->Entrada->ano = ano;
         r1->Entrada->mes = mes;
