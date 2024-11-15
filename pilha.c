@@ -104,6 +104,7 @@ void desafazer(Stack * pilha, Queue * fila)
                 
             fila->head = novo;
             fila->head->proximo = temp;
+            temp->anterior = novo;
             fila->qtde++;
 
             pop(pilha);
