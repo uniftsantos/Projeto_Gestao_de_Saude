@@ -8,7 +8,7 @@
 //Funcao menu, onde temos o print de todas as opcoes que o usuario podera escolher.
 void menu()
 {
-    printf("MENU GERENCIAMENTO DE SAÚDE:\n");
+    printf("MENU GERENCIAMENTO DE SAUDE:\n");
 
     //Lista Dinamica Encadeada(cadastrar)
     printf("1  - Cadastrar Novo paciente:\n");
@@ -89,7 +89,6 @@ int consulta_arquivo(char rg[15])
 
     //Lemos a quantidade que tem armazenada
     fread(&quantidade, sizeof(int), 1, arquivo); 
-    printf("\n %d REGISTROS CARREGADOS\n\n", quantidade);
 
     //Começamos um laço baseado na quantidade
     for (int i = 0; i < quantidade; i++) 
@@ -127,7 +126,7 @@ void carregar_lista(Lista *lista, Arvore * arvore_idade, Arvore * arvore_dia, Ar
 
     //Lemos a quantidade que tem armazenada
     fread(&quantidade, sizeof(int), 1, arquivo); 
-    printf("\n %d REGISTROS CARREGADOS\n\n", quantidade);
+    printf("\nREGISTROS CARREGADOS\n\n");
 
     //Começamos um laço baseado na quantidade
     for (int i = 0; i < quantidade; i++) 
@@ -150,11 +149,16 @@ void carregar_lista(Lista *lista, Arvore * arvore_idade, Arvore * arvore_dia, Ar
     //Usamos o show invertido para inserir cada valor na ordem correta na lista e nas arvores de busca
     while(atual != NULL)
     {
-        inserir_lista_cadastro(lista, atual->registro);
-        inserir_ordenado_idade(arvore_idade, atual->registro);
-        inserir_ordenado_dia(arvore_dia, atual->registro);
-        inserir_ordenado_mes(arvore_mes, atual->registro);
-        inserir_ordenado_ano(arvore_ano, atual->registro);
+        Registro * temp  = encontra_paciente(lista, atual->registro->rg);
+
+        if(temp == NULL)
+        {
+            inserir_lista_cadastro(lista, atual->registro);
+            inserir_ordenado_idade(arvore_idade, atual->registro);
+            inserir_ordenado_dia(arvore_dia, atual->registro);
+            inserir_ordenado_mes(arvore_mes, atual->registro);
+            inserir_ordenado_ano(arvore_ano, atual->registro);
+        }
 
         atual = atual ->anterior;
     }

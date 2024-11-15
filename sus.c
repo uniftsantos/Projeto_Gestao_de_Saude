@@ -71,7 +71,7 @@ int main(){
                 Registro *x = encontra_paciente(lista, rg); //Consultamos se esse RG existe na lista atual
                 int y = consulta_arquivo(rg); //Consultamos se esse RG existe no arquivo
 
-                if(x == NULL || y == 1)
+                if(x != NULL || y == 1)
                 {
                     printf("Ja existe um paciente cadastrado com esse RG\n");
                 }
